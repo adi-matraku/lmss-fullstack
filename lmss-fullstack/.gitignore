@@ -230,3 +230,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 *.pack
+0.pack
+index.pack
+.vs/*

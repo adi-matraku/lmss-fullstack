@@ -19,6 +19,7 @@
 *.sublime-workspace
 
 # IDE - VSCode
+.vs
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -38,3 +39,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/.angular/cache
