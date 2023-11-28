@@ -232,3 +232,4 @@ _Pvt_Extensions
 *.pack
 0.pack
 index.pack
+.angular/cache

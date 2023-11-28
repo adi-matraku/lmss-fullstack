@@ -12,8 +12,8 @@ using lmss_fullstack.Context;
 namespace lmss_fullstack.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231126202838_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231128175527_create")]
+    partial class create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,13 +147,13 @@ namespace lmss_fullstack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("PasswordSalt")
+                    b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
