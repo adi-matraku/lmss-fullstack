@@ -1,9 +1,11 @@
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using lmss_fullstack.Context;
 using lmss_fullstack.DTOs;
 using lmss_fullstack.Interfaces;
 using lmss_fullstack.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,7 +79,19 @@ public class AuthController: BaseApiController
         };
     }
     
+    [Authorize] // Add this attribute to require authorization for the /me endpoint
+    [HttpGet("me")]
+    public async Task<ActionResult<User>> GetCurrentUser()
+    {
+        var id = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve email from the token claims
 
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
+
+        if (user == null) return NotFound("User not found");
+
+        return user;
+    }
+    
     private async Task<bool> UserExists(string email)
     {
         return await _context.Users.AnyAsync(user => user.Email == email.ToLower());
