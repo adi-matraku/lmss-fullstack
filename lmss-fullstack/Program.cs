@@ -1,5 +1,10 @@
+using System.Text;
 using lmss_fullstack.Context;
+using lmss_fullstack.Interfaces;
+using lmss_fullstack.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +20,15 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Your API", Version = "v1" });
 });
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"])),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    });
 
 var app = builder.Build();
 
@@ -33,14 +47,13 @@ app.UseSwaggerUI(c =>
     // c.RoutePrefix = "swagger";
 });
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
+// app.UseHttpsRedirection();
+// app.UseStaticFiles();
+// app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseAuthentication();
+app.UseAuthorization();
 
-app.MapFallbackToFile("index.html");
+app.MapControllers();
 
 app.Run();

@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using lmss_fullstack.Context;
 using lmss_fullstack.DTOs;
+using lmss_fullstack.Interfaces;
 using lmss_fullstack.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,14 +12,16 @@ namespace lmss_fullstack.Controllers;
 public class AuthController: BaseApiController
 {
     private readonly DataContext _context;
+    private readonly ITokenService _tokenService;
 
-    public AuthController(DataContext context)
+    public AuthController(DataContext context, ITokenService tokenService)
     {
         _context = context;
+        _tokenService = tokenService;
     }
 
     [HttpPost("register")] // /api/auth/register
-    public async Task<ActionResult<User>> Register(RegisterDto registerDto)
+    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
         if (await UserExists(registerDto.Email)) return BadRequest("Email is taken");
         
@@ -44,8 +47,36 @@ public class AuthController: BaseApiController
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return user;
+        return new UserDto
+        {
+            Email = user.Email,
+            Token = _tokenService.CreateToken(user)
+        };
     }
+
+    [HttpPost("login")]
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+    {
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == loginDto.Email);
+
+        if (user == null) return Unauthorized("Invalid user");
+        
+        using var hmac = new HMACSHA512(user.PasswordSalt);
+
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+        for (int i = 0; i < computedHash.Length; i++)
+        {
+            if (computedHash[i] != user.Password[i]) return Unauthorized("Invalid Password");
+        }
+
+        return new UserDto
+        {
+            Email = user.Email,
+            Token = _tokenService.CreateToken(user)
+        };
+    }
+    
 
     private async Task<bool> UserExists(string email)
     {
