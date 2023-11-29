@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace lmss_fullstack.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class UsersController : BaseApiController
 {
     private readonly DataContext _context;
