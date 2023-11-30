@@ -61,7 +61,7 @@ public class AuthController: BaseApiController
     {
         var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == loginDto.Email);
 
-        if (user == null) return Unauthorized("Invalid user");
+        if (user == null) return Unauthorized("An account with this email does not exist");
         
         using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -79,11 +79,11 @@ public class AuthController: BaseApiController
         };
     }
     
-    [Authorize] // Add this attribute to require authorization for the /me endpoint
+    [Authorize] // Require authorization for the /me endpoint
     [HttpGet("me")]
     public async Task<ActionResult<User>> GetCurrentUser()
     {
-        var id = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve email from the token claims
+        var id = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
 
         var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
 
