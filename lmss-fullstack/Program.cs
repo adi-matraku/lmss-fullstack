@@ -1,4 +1,5 @@
 using lmss_fullstack.Extensions;
+using lmss_fullstack.Helpers;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();

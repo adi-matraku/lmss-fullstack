@@ -1,3 +1,4 @@
+using AutoMapper;
 using lmss_fullstack.Context;
 using lmss_fullstack.Interfaces;
 using lmss_fullstack.Services;
