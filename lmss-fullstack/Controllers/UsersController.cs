@@ -99,6 +99,8 @@ public class UsersController : BaseApiController
             {
                 return Forbid(); // User does not have permission to perform the update
             }
+            
+            userPatch.Role = user.Role;
         }
 
         // Check if the user to be updated exists
