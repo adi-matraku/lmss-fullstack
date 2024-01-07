@@ -14,6 +14,7 @@ public static class AppServiceExtensions
             options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<UserService>();
         return services;
     }
 }
