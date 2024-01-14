@@ -2,6 +2,7 @@ using lmss_fullstack.Context;
 using lmss_fullstack.DTOs;
 using lmss_fullstack.Helpers;
 using lmss_fullstack.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace lmss_fullstack.Services;
 
@@ -58,5 +59,16 @@ public class UserService
         }
         
         return await PagedList<User>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+    }
+    
+    public async Task AddBookToUser(string userId, Book book)
+    {
+        var user = await _context.Users.Include(u => u.CreatedBooks).FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user != null)
+        {
+            user.CreatedBooks.Add(book);
+            await _context.SaveChangesAsync();
+        }
     }
 }

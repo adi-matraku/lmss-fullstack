@@ -1,13 +1,17 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace lmss_fullstack.Models;
 
 public class Book
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string Id { get; set; }
     public string Title { get; set; }
     public string Author { get; set; }
-    public string Genre { get; set; }
     public string ISBN { get; set; }
-    public string AvailabilityStatus { get; set; }
+    public bool AvailabilityStatus { get; set; }
     public int NumberOfCopies { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }

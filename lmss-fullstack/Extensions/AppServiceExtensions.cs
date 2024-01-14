@@ -16,6 +16,7 @@ public static class AppServiceExtensions
         });
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<UserService>();
+        services.AddScoped<BookService>();
         return services;
     }
 }
