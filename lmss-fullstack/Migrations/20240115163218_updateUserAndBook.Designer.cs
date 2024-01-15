@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lmss_fullstack.Context;
 
@@ -11,9 +12,10 @@ using lmss_fullstack.Context;
 namespace lmss_fullstack.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240115163218_updateUserAndBook")]
+    partial class updateUserAndBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace lmss_fullstack.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CreatedByUserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -63,7 +65,12 @@ namespace lmss_fullstack.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Books");
                 });
@@ -171,6 +178,13 @@ namespace lmss_fullstack.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("lmss_fullstack.Models.Book", b =>
+                {
+                    b.HasOne("lmss_fullstack.Models.User", null)
+                        .WithMany("CreatedBooks")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("lmss_fullstack.Models.Loan", b =>
                 {
                     b.HasOne("lmss_fullstack.Models.Book", "Book")
@@ -197,6 +211,8 @@ namespace lmss_fullstack.Migrations
 
             modelBuilder.Entity("lmss_fullstack.Models.User", b =>
                 {
+                    b.Navigation("CreatedBooks");
+
                     b.Navigation("Loans");
                 });
 #pragma warning restore 612, 618

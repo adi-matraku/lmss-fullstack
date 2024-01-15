@@ -16,13 +16,7 @@ public class Book
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public string UpdatedBy { get; set; }
-
-    // Foreign Key
-    public string CreatedByUserID { get; set; }
-
+    public string CreatedBy { get; set; }
     public bool IsActive { get; set; }
-
-    // Navigation Properties
-    public User CreatedByUser { get; set; }
     public List<Loan> Loans { get; set; }
 }

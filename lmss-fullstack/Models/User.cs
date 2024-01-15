@@ -23,5 +23,4 @@ public class User
 
     // Navigation Properties
     public List<Loan> Loans { get; set; }
-    public List<Book> CreatedBooks { get; set; }
 }

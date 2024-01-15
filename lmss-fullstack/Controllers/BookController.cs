@@ -46,8 +46,8 @@ public class BookController: BaseApiController
         }
         
         var book = _mapper.Map<Book>(bookCreateDto);
-        
-        book.CreatedByUserID = userId;
+
+        book.CreatedBy = user!.FirstName + ' ' + user!.LastName;
         book.CreatedAt = DateTime.UtcNow;
         book.UpdatedAt = DateTime.UtcNow;
         book.UpdatedBy = user!.FirstName + ' ' + user!.LastName; // Set the user who updated/created the book
@@ -56,10 +56,32 @@ public class BookController: BaseApiController
 
         await _context.Books.AddAsync(book);
         await _context.SaveChangesAsync();
-
-        // Add the newly created book to the user's CreatedBooks collection
-        await _userService.AddBookToUser(userId, book);
-        
         return CreatedAtAction("GetBooks", new { id = book.Id }, _mapper.Map<BookCreateDto>(book));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBook(string id)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
+
+        var user = await _context.Users.FindAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        var book = await _context.Books.FindAsync(id);
+
+        if (book == null)
+        {
+            return NotFound("Book not found");
+        }
+
+        book.IsActive = false;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
 }

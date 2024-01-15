@@ -38,12 +38,6 @@ public class DataContext: DbContext
             .WithOne(loan => loan.User)
             .HasForeignKey(loan => loan.UserID).OnDelete(DeleteBehavior.NoAction);
 
-        // User - Book (One-to-Many)
-        modelBuilder.Entity<User>()
-            .HasMany(u => u.CreatedBooks)
-            .WithOne(book => book.CreatedByUser)
-            .HasForeignKey(book => book.CreatedByUserID).OnDelete(DeleteBehavior.NoAction);
-
         // Book - Loans (One-to-Many)
         modelBuilder.Entity<Book>()
             .HasMany(book => book.Loans)
