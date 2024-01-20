@@ -1,6 +1,7 @@
 using AutoMapper;
 using lmss_fullstack.DTOs;
 using lmss_fullstack.DTOs.Book;
+using lmss_fullstack.DTOs.Loans;
 using lmss_fullstack.Models;
 
 namespace lmss_fullstack.Helpers;
@@ -21,8 +22,7 @@ public class AutoMapperProfiles: Profile
 
         CreateMap<Book, BookCreateDto>();
         CreateMap<BookCreateDto, Book>();
-
-
-        // CreateMap<BookCreateDto, Book>();
+        
+        CreateMap<LoanCreateDto, Loan>();
     }
 }
