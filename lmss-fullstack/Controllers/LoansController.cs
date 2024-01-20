@@ -94,6 +94,27 @@ public class LoansController: BaseApiController
     }
     
     [Authorize(Roles = "Admin")]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateLoan(string id, [FromBody] LoanUpdate loanUpdateDto)
+    {
+        var loan = await _context.Loans
+            .Include(l => l.Book)
+            .Include(l => l.User)
+            .FirstOrDefaultAsync(l => l.Id == id);
+        
+        if (loan == null)
+        {
+            return NotFound();
+        }
+
+        // Map the updated fields from the DTO to the loan entity
+        _mapper.Map(loanUpdateDto, loan);
+        
+        await _context.SaveChangesAsync();
+        return Ok(loan);
+    }
+    
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBook(string id)
     {

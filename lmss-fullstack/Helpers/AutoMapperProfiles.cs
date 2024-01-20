@@ -24,5 +24,6 @@ public class AutoMapperProfiles: Profile
         CreateMap<BookCreateDto, Book>();
         
         CreateMap<LoanCreateDto, Loan>();
+        CreateMap<LoanUpdate, Loan>();
     }
 }
