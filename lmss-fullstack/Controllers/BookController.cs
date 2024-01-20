@@ -49,7 +49,7 @@ public class BookController: BaseApiController
     
     [Authorize(Roles = "Admin")]
     [HttpPost]
-    public async Task<ActionResult<BookCreateDto>> CreateBook(BookCreateDto bookCreateDto)
+    public async Task<ActionResult<Book>> CreateBook(BookCreateDto bookCreateDto)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
 
@@ -72,7 +72,7 @@ public class BookController: BaseApiController
 
         await _context.Books.AddAsync(book);
         await _context.SaveChangesAsync();
-        return CreatedAtAction("GetBooks", new { id = book.Id }, _mapper.Map<BookCreateDto>(book));
+        return Ok(book);
     }
     
     [Authorize(Roles = "Admin")]

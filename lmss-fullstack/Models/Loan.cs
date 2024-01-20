@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace lmss_fullstack.Models;
 
@@ -18,8 +19,11 @@ public class Loan
     public bool IsActive { get; set; } // New column for logical deletion
 
     // Navigation Properties
+    [JsonIgnore]
     public string BookID { get; set; }
     public Book Book { get; set; }
+    
+    [JsonIgnore] 
     public string UserID { get; set; }
     public User User { get; set; }
 }
