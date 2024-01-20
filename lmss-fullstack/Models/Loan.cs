@@ -1,7 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace lmss_fullstack.Models;
 
 public class Loan
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public string Id { get; set; }
     public DateTime LoanDate { get; set; }
     public DateTime DueDate { get; set; }

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace lmss_fullstack.Models;
 
@@ -22,5 +23,6 @@ public class User
     public bool IsActive { get; set; } // New column for logical deletion
 
     // Navigation Properties
+    [JsonIgnore]
     public List<Loan> Loans { get; set; }
 }

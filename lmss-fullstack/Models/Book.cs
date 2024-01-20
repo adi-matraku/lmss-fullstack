@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace lmss_fullstack.Models;
 
@@ -20,5 +21,7 @@ public class Book
     public string UpdatedBy { get; set; }
     public string CreatedBy { get; set; }
     public bool IsActive { get; set; }
+    
+    [JsonIgnore] 
     public List<Loan> Loans { get; set; }
 }
