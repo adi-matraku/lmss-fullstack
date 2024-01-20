@@ -1,6 +1,10 @@
 using lmss_fullstack.Context;
+using lmss_fullstack.DTOs.Book;
 using lmss_fullstack.DTOs.Loans;
+using lmss_fullstack.Helpers;
 using lmss_fullstack.Models;
+using lmss_fullstack.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,20 +13,29 @@ namespace lmss_fullstack.Controllers;
 public class LoansController: BaseApiController
 {
     private readonly DataContext _context;
+    private readonly LoanService _loanService;
 
-    public LoansController(DataContext context)
+    public LoansController(DataContext context, LoanService loanService)
     {
         _context = context;
+        _loanService = loanService;
     }
     
+    // [HttpGet]
+    // public async Task<IActionResult> GetAllLoans()
+    // {
+    //     var loans = await _context.Loans
+    //         .Include(loan => loan.Book)
+    //         .Include(loan => loan.User)
+    //         .ToListAsync();
+    //     return Ok(loans);
+    // }
+
+    [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAllLoans()
+    public async Task<ActionResult<PagedList<Loan>>> GetLoans([FromQuery] LoanParams loanParams)
     {
-        var loans = await _context.Loans
-            .Include(loan => loan.Book)
-            .Include(loan => loan.User)
-            .ToListAsync();
-        return Ok(loans);
+        return await _loanService.GetLoansAsync(loanParams);
     }
     
     [HttpPost]
@@ -46,12 +59,14 @@ public class LoansController: BaseApiController
             Status = "inProgress",
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now,
-            UpdatedBy = "Admin",
+            UpdatedBy = loanDto.UserID,
             IsActive = true
         };
 
         await _context.Loans.AddAsync(loan);
         book.Stock--; // Decrease book stock
+        
+        await _context.Entry(loan).Reference(l => l.User).LoadAsync();
         await _context.SaveChangesAsync();
 
         return Ok(loan);

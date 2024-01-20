@@ -1,4 +1,3 @@
-using AutoMapper;
 using lmss_fullstack.Context;
 using lmss_fullstack.Interfaces;
 using lmss_fullstack.Services;
@@ -17,6 +16,7 @@ public static class AppServiceExtensions
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<UserService>();
         services.AddScoped<BookService>();
+        services.AddScoped<LoanService>();
         return services;
     }
 }
