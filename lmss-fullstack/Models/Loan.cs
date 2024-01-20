@@ -3,8 +3,6 @@ namespace lmss_fullstack.Models;
 public class Loan
 {
     public string Id { get; set; }
-    public string BookID { get; set; }
-    public string UserID { get; set; }
     public DateTime LoanDate { get; set; }
     public DateTime DueDate { get; set; }
     public DateTime? ReturnDate { get; set; }
@@ -15,6 +13,8 @@ public class Loan
     public bool IsActive { get; set; } // New column for logical deletion
 
     // Navigation Properties
+    public string BookID { get; set; }
     public Book Book { get; set; }
+    public string UserID { get; set; }
     public User User { get; set; }
 }

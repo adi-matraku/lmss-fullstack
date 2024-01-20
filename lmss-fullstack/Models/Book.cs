@@ -13,6 +13,8 @@ public class Book
     public string ISBN { get; set; }
     public bool AvailabilityStatus { get; set; }
     public int NumberOfCopies { get; set; }
+
+    public int Stock { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public string UpdatedBy { get; set; }
