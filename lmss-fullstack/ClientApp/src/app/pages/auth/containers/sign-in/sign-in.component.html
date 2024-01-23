@@ -1,0 +1,43 @@
+<form [formGroup]="form" class="credentials-form">
+  <h2>Welcome to the Library</h2>
+  <div class="form-group">
+    <label class="credentials-form__label" for="email">Email</label>
+    <input type="email" email="true" id="email" class="form-input" formControlName="email" pInputText>
+    <p class="error-message"
+       *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
+    >
+      Please enter a valid email.
+    </p>
+  </div>
+  <div class="form-group">
+   <label class="credentials-form__label" for="password">Password</label>
+   <input type="password" id="password" class="form-input" formControlName="password" pInputText/>
+    <p class="error-message"
+       *ngIf="!form.get('password')?.valid && form.get('password')?.touched"
+    >
+      Please enter a valid password.
+    </p>
+
+    <div class="settings-box">
+    <div class="field-checkbox">
+      <input type="checkbox" id="checkbox" class="checkbox" formControlName="rememberMe">
+      <label class="buttons-label" for="checkbox">Remember Me</label>
+    </div>
+
+      <button type="button" class="forgot-pass" (click)="onForgotPassword()">Forgot Password</button>
+    </div>
+
+    <button type="submit" class="button" [disabled]="!form.valid" (click)="onSignIn()" [class.p-disabled]="!form.valid || isLoading" >
+      <span class="center-alignment">
+         Sign In
+         <i class="pi pi-spin pi-spinner icons" *ngIf="isLoading"></i>
+         <i class="pi pi-sign-in icons" *ngIf="!isLoading"></i>
+      </span>
+    </button>
+<!--    <div *ngIf="isLoading">-->
+<!--      <app-loading-spinner></app-loading-spinner>-->
+<!--    </div>-->
+
+    <button type="button" class="create-account-button" (click)="onSignupRedirect()">Create an account</button>
+  </div>
+</form>

@@ -1,0 +1,35 @@
+.main-container {
+  height: 100vh;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @media(max-width: 62.5em) {
+    grid-template-columns: 1fr;
+  }
+
+  &__img {
+    background-image: linear-gradient(rgba(#000, .5), rgba(#000, .5)), url("https://vue-library-demo.web.app/images/signin.jpg");
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+
+    @media(max-width: 62.5em) {
+      display: none;
+    }
+  }
+
+  &__form {
+    //height: 100vh;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media(max-width: 62.5em) {
+      background-image: linear-gradient(rgba(#eee, .95), rgba(#eee, .95)), url("https://vue-library-demo.web.app/images/signin.jpg");;
+
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}

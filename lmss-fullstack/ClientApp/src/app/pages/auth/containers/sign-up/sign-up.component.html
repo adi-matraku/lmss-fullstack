@@ -1,0 +1,37 @@
+<form [formGroup]="form" class="credentials-form">
+  <h2>Welcome to the Library</h2>
+  <div class="form-group">
+    <label class="credentials-form__label" for="email">Email</label>
+    <input type="email" id="email" class="form-input" formControlName="email" pInputText>
+    <p class="error-message"
+       *ngIf="!submitted && !form.get('email')?.valid && form.get('email')?.touched"
+    >
+      Please input a valid email.
+    </p>
+    <p class="error-message"
+       *ngIf="submitted && !form.get('email')?.valid"
+    >
+      Please input a valid email.
+    </p>
+  </div>
+  <div class="form-group">
+    <label class="credentials-form__label" for="password">Password</label>
+    <input type="password" id="password" class="form-input" formControlName="password" pPassword />
+    <p class="error-message" *ngIf="!submitted && !form.get('password')?.valid && form.get('password')?.touched ">
+      Please input a valid password with atleast 6 characters, 1 uppercase, 1 lowercase, 1 numeric.
+    </p>
+    <p class="error-message" *ngIf="submitted && !form.get('password')?.valid ">
+      Please input a valid password with atleast 6 characters, 1 uppercase, 1 lowercase, 1 numeric.
+    </p>
+
+    <button type="submit" class="button" (click)="onSignup()" [class.p-disabled]="!form.valid || isLoading">
+      <span class="center-alignment" style="justify-content: center;">
+         Sign Up
+         <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem; margin-left: 1rem" *ngIf="isLoading"></i>
+         <i class="pi pi-chevron-right" style="font-size: 1.4rem; margin-left: 1rem" *ngIf="!isLoading"></i>
+      </span>
+    </button>
+
+    <button type="button" class="signin-account-button" (click)="onSigninRedirect()">Already have an account? Sign in.</button>
+  </div>
+</form>

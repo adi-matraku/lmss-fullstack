@@ -1,0 +1,123 @@
+h2 {
+  text-align: center;
+  margin-bottom: 5rem;
+  font-weight: 600;
+}
+
+.credentials-form {
+  width: 50rem;
+
+  @media (max-width: 31.25em) {
+    width: 35rem;
+  }
+
+  &__label {
+    font-size: 1.4rem;
+    margin-bottom: .7rem;
+    font-weight: 400;
+  }
+
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.form-input {
+  font-size: 1.4rem;
+  padding: 1.2rem;
+  width: 100%;
+  border: none;
+  border-radius: 7px;
+}
+
+.settings-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.forgot-pass {
+  align-self: flex-end;
+  font-size: 1.4rem;
+  border: none;
+  color: var(--buttons-color);
+  background: none;
+}
+
+.field-checkbox {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  display: inline-block;
+  cursor: pointer;
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.buttons-label {
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin-left: .5rem;
+  color: var(--buttons-color);
+}
+
+.button {
+  font-size: 1.4rem;
+  color: #fff;
+  font-weight: 500;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 7px;
+  background-color: var(--primary-color);
+  margin-top: 2rem;
+  border: none;
+  transition: all .2s;
+
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+
+  &:active {
+    background-color: var(--tertiary-color-dark);
+  }
+}
+
+.create-account-button {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  border: none;
+  color: var(--primary-color);
+  background: none;
+  cursor: pointer;
+}
+
+.error-message {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+:host ::ng-deep {
+  .p-toast, .p-toast-message, .p-toast-content, .p-toast-summary {
+    //margin-bottom: 15rem;
+    font-size: 2rem;
+  }
+}
+
+.icons {
+  font-size: 1.4rem;
+  margin-left: 1rem;
+}
