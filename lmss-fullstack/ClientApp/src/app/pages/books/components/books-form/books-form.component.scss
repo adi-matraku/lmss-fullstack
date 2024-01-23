@@ -1,0 +1,34 @@
+.form-group {
+  //background-color: red;
+  //display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.input-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1.5rem;
+
+  @media (max-width: 35em) {
+    display: block;
+  }
+}
+
+.buttons-box {
+  text-align: end;
+}
+
+:host ::ng-deep {
+  .p-dropdown {
+    width: 100%;
+  }
+
+  .p-dropdown-panel, .p-dropdown-items, .p-dropdown-item {
+    font-size: 1.4rem;
+  }
+
+  .p-inputtext {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -1,0 +1,79 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <app-back-button></app-back-button>
+    <h1>Edit Book</h1>
+
+    <ng-container *ngIf="book$ | async as book ; else loading">
+    <div class="form-container">
+
+      <form [formGroup]="form">
+
+        <div class="form-group">
+          <label for="id" class="form-label">Id</label>
+          <input type="text" id="id" class="form-input" formControlName="id" readonly pInputText>
+        </div>
+
+        <div class="form-group">
+          <label for="isbn" class="form-label">ISBN</label>
+          <input type="text" id="isbn" class="form-input" formControlName="isbn" pInputText>
+          <p class="error-message"
+             *ngIf="!form.get('isbn')?.valid && form.get('isbn')?.touched"
+          >
+            Please input a valid ISBN.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="isbn" class="form-label">Title</label>
+          <input type="text" id="title" class="form-input" formControlName="title" pInputText>
+          <p class="error-message"
+             *ngIf="!form.get('title')?.valid && form.get('title')?.touched"
+          >
+            Please input a valid Title.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="isbn" class="form-label">Author</label>
+          <input type="text" id="author" class="form-input" formControlName="author" pInputText>
+          <p class="error-message"
+             *ngIf="!form.get('author')?.valid && form.get('author')?.touched"
+          >
+            Please input a valid Author.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="isbn" class="form-label">Number of Copies</label>
+          <p-inputNumber mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1" [max]="10" formControlName="numberOfCopies">
+          </p-inputNumber>
+        </div>
+
+        <input type="file" formControlName="images">
+
+        <button [class.p-disabled]="disabled" type="submit" class="button" [disabled]="disabled" (click)="onSave()">
+          <span class="center-alignment">
+            <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem" *ngIf="isLoading"></i>
+            <i class="pi pi-save" *ngIf="!isLoading"></i>
+            Save
+          </span>
+        </button>
+        <button type="button" class="reset-button" (click)="onReset()">
+          <i class="pi pi-undo"></i>
+          Reset
+        </button>
+
+      </form>
+
+    </div>
+    </ng-container>
+
+    <ng-template #loading >
+      <div class="loading-box">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

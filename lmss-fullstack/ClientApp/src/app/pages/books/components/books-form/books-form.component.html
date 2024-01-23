@@ -1,0 +1,35 @@
+<div class="book-container-box">
+
+    <form [formGroup]="form">
+
+    <div class="input-container">
+      <div class="form-group">
+        <label class="form-label" for="isbn">ISBN</label>
+        <input type="text" id="isbn" class="form-input" formControlName="isbn" pInputText>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="title">Title</label>
+        <input type="text" id="title" class="form-input" formControlName="title" pInputText>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="author">Author</label>
+        <input type="text" id="author" class="form-input" formControlName="author" pInputText>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="status">Status</label>
+        <p-dropdown id="status" [options]="availability" formControlName="status" optionLabel="label" optionValue="value">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="buttons-box">
+      <button type="submit" class="button" (click)="onSearch()"><i class="pi pi-search"></i>Search</button>
+      <button type="submit" class="reset-button" (click)="reset()"><i class="pi pi-undo"></i>Reset</button>
+    </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,87 @@
+<div class="form-box">
+<form [formGroup]="form" class="form-layout">
+
+    <div class="form-group">
+      <div class="label-box">
+              <label class="form-label">Book</label>
+
+              <p-autoComplete
+                dataKey="id"
+                field="label"
+                [dropdown]="true"
+                (completeMethod)="search($event)"
+                (onSelect)="select($event)"
+                [suggestions]="books"
+                formControlName="book">
+                <ng-template let-book pTemplate="item">
+                  <div class="book-item">
+                    <div>{{ book.label }}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+
+      </div>
+    </div>
+
+<!--  {{form.value | json}}-->
+    <div class="form-group">
+      <div class="label-box">
+        <label class="form-label">Member</label>
+
+        <p-autoComplete
+          dataKey="id"
+          field="label"
+          (completeMethod)="searchMember($event)"
+          [suggestions]="members"
+          [dropdown]="true"
+          formControlName="member">
+          <ng-template let-members pTemplate="item">
+            <div class="country-item">
+              <div>{{ members.label }}</div>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="label-box">
+        <label class="form-label">Issue Date</label>
+        <p-calendar selectionMode="range" [readonlyInput]="true" inputId="range" formControlName="issueDate">
+        </p-calendar>
+      </div>
+    </div>
+
+  <div class="form-group">
+    <div class="label-box">
+      <label class="form-label">Due Date</label>
+      <p-calendar selectionMode="range" [readonlyInput]="true" inputId="range" formControlName="dueDate">
+      </p-calendar>
+    </div>
+  </div>
+
+   <div class="form-group">
+    <div class="label-box">
+       <label class="form-label">Return Date</label>
+      <p-calendar selectionMode="range" [readonlyInput]="true" inputId="range" formControlName="returnDate">
+      </p-calendar>
+     </div>
+   </div>
+
+  <div class="form-group">
+    <div class="label-box">
+      <label class="form-label">Status</label>
+
+      <p-dropdown id="status" [options]="availability" formControlName="status" optionLabel="label" optionValue="value">
+      </p-dropdown>
+    </div>
+  </div>
+
+  <div class="buttons-box">
+    <button class="button" (click)="onSearch()"><i class="pi pi-search"></i>Search</button>
+    <button class="reset-button" (click)="reset()"><i class="pi pi-undo"></i>Reset</button>
+  </div>
+
+</form>
+
+</div>

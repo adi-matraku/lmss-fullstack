@@ -1,22 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
-/* {
+//
+//* {
 //  margin: 0;
 //  padding: 0;
 //}
 
 html {
   /*font-size: 10px;*/
-/* Percentage of users browser font-size setting */
-/*font-size: 62.5%; !* 10px / 16px = 0.625 *!*/
-html {
-  /*font-size: 10px;*/
-  font-size: 62.5%;
-}
+  /* Percentage of users browser font-size setting */
+  font-size: 62.5%; /* 10px / 16px = 0.625 */
 
-
-@media (max-width: 75em) {
-  font-size: 50%;
+  @media (max-width: 75em) {
+    font-size: 50%;
+  }
 }
 
 body {
@@ -40,7 +37,7 @@ body {
     background-color: white;
     height: 90%;
 
-    & h1 {
+    h1 {
       font-weight: 600;
     }
   }
@@ -105,7 +102,7 @@ body {
   border-radius: 7px;
   font-size: 1.4rem;
   font-weight: 400;
-//border: none;
+  //border: none;
   color: var(--primary-color);
   transition: all .2s;
 

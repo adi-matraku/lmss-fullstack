@@ -1,0 +1,83 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <app-back-button></app-back-button>
+    <h1>New Loan</h1>
+
+    <div class="form-container">
+
+      <form [formGroup]="form">
+
+        <div class="form-group">
+            <label class="form-label">Book</label>
+
+            <p-autoComplete
+              dataKey="id"
+              field="label"
+              [dropdown]="true"
+              (completeMethod)="search($event)"
+              (onSelect)="select($event)"
+              [suggestions]="books"
+              formControlName="book">
+              <ng-template let-book pTemplate="item">
+                <div class="book-item">
+                  <div>{{ book.label }}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Member</label>
+
+            <p-autoComplete
+              dataKey="id"
+              field="label"
+              (completeMethod)="searchMember($event)"
+              (onSelect)="selectMember($event)"
+              [suggestions]="members"
+              [dropdown]="true"
+              formControlName="member">
+              <ng-template let-members pTemplate="item">
+                <div class="country-item">
+                  <div>{{ members.label }}</div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Issue Date</label>
+          <p-calendar [readonlyInput]="true" inputId="rangeIssue" formControlName="issueDate">
+          </p-calendar>
+        </div>
+
+        <div class="form-group" *ngIf="inputDate">
+          <label class="form-label">Due Date</label>
+          <p-calendar [readonlyInput]="true" inputId="rangeDue" formControlName="dueDate">
+          </p-calendar>
+        </div>
+
+        <div class="form-group" *ngIf="inputDate">
+          <label class="form-label">Status</label>
+          <span class="book-status" [ngClass]="{
+            'closed-status': statusValue === 'overdue', 'progress-status': statusValue === 'inProgress'}" >
+              {{ statusValue === 'inProgress' ? 'In Progress' : statusValue | titlecase  }} </span>
+        </div>
+
+        <button type="submit" class="button" [disabled]="!form.valid" [class.p-disabled]="!form.valid" (click)="onSave()">
+          <span class="center-alignment">
+                <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem" *ngIf="isLoading"></i>
+                <i class="pi pi-save" *ngIf="!isLoading"></i>
+                Save
+          </span>
+        </button>
+        <button type="button" class="reset-button" (click)="onReset()"><i class="pi pi-undo"></i>Reset</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

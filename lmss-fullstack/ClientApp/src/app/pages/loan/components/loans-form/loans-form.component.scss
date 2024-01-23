@@ -1,0 +1,149 @@
+.form-box {
+  .form-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    grid-column-gap: 1rem;
+
+    @media (max-width: 35em) {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+
+      .error-message {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .label-box {
+        margin-bottom: .8rem;
+        display: flex;
+        flex-direction: column;
+        //grid-column-gap: 1rem;
+
+        label {
+          font-size: 1.4rem;
+          margin-right: 1rem;
+          font-weight: 500;
+          margin-bottom: .5rem;
+          width: 10rem;
+        }
+
+      }
+
+      .form-input {
+        font-size: 1.4rem;
+        height: 3.8rem;
+        padding-left: 1.5rem;
+        width: 100%;
+        border-radius: 7px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+    }
+  }
+
+  //.input-container {
+  //  display: grid;
+  //  grid-template-rows: repeat(2, 1fr);
+  //  grid-column-gap: 1.5rem;
+  //}
+
+  .buttons-box {
+    text-align: end;
+    grid-column: 2;
+    //background-color: red;
+
+    .reset-button {
+      font-size: 1.4rem;
+      color: rgba(28, 27, 27, 0.85);
+      font-weight: 500;
+      padding: 1.2rem 2rem;
+      border: 1px solid rgba(0,0,0, .2);
+      border-radius: 4px;
+      transition: all .2s;
+      //margin: 2rem 0 0 0;
+      background-color: #fff;
+
+      &:hover {
+        color: var(--buttons-color);
+        background-color: rgba(61, 135, 229, .2);
+        border-color: rgba(61, 135, 229, .2);
+      }
+
+      &:active {
+        color: rgba(61, 135, 229, .4);
+        background-color: rgba(61, 135, 229, .25);
+      }
+    }
+
+  }
+}
+
+
+:host ::ng-deep {
+  .p-autocomplete-dd, .p-component {
+    height: 3.8rem;
+  }
+
+  .p-autocomplete {
+    display: flex;
+    width: 100%;
+
+    .p-autocomplete-input {
+      font-size: 1.4rem;
+      padding-left: 1.2rem;
+    }
+
+    .p-autocomplete-panel {
+      height: auto;
+    }
+
+    .p-autocomplete-items {
+      font-size: 1.3rem;
+    }
+
+  }
+  //
+  .p-calendar {
+    display: flex;
+  }
+  //
+  .p-calendar .p-inputtext {
+    font-size: 1.4rem;
+  }
+
+  .p-inputtext {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .p-datepicker table {
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid rgb(0,0,0, .1);
+  }
+
+  .p-datepicker, .p-datepicker-header, .p-datepicker-title, .p-datepicker-month, .p-datepicker-year {
+    font-size: 1.4rem;
+  }
+
+  .p-dropdown {
+    width: 100%;
+  }
+
+  .p-dropdown-panel, .p-dropdown-items, .p-dropdown-item {
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid rgb(0,0,0, .1);
+  }
+
+  .p-dropdown-label {
+    font-size: 1.4rem;
+    padding-left: 1.4rem;
+  }
+
+}

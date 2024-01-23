@@ -4,9 +4,9 @@
 
     <a class="heading-link" routerLink="loan"> <p class="library-text">Library</p> </a>
     <ul class="links-list">
-      <li [appRole]="['librarian', 'owner']" class="list-item"><a routerLinkActive="active" routerLink="audit-logs" class="sidebar-links"><i class="pi pi-history"></i>Audit Logs</a></li>
-      <li [appRole]="['librarian', 'owner']" class="list-item"><a routerLinkActive="active" routerLink="settings" class="sidebar-links"><i class="pi pi-cog"></i>Settings</a></li>
-      <li [appRole]="['librarian', 'owner']" class="list-item"><a routerLinkActive="active" routerLink="iam" class="sidebar-links"><i class="pi pi-users"></i>Users</a></li>
+      <li *appRole="['Admin', 0]" class="list-item"><a routerLinkActive="active" routerLink="audit-logs" class="sidebar-links"><i class="pi pi-history"></i>Audit Logs</a></li>
+      <li *appRole="['Admin', 0]" class="list-item"><a routerLinkActive="active" routerLink="settings" class="sidebar-links"><i class="pi pi-cog"></i>Settings</a></li>
+      <li *appRole="['Admin', 0]" class="list-item"><a routerLinkActive="active" routerLink="iam" class="sidebar-links"><i class="pi pi-users"></i>Users</a></li>
       <li class="list-item"><a routerLinkActive="active" routerLink="loan" class="sidebar-links"><i class="pi pi-id-card"></i>Loans</a></li>
       <li class="list-item"><a routerLinkActive="active" routerLink="book" class="sidebar-links"><i class="pi pi-book"></i>Books</a></li>
     </ul>

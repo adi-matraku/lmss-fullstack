@@ -1,0 +1,27 @@
+.form-container {
+  padding: 5rem 4rem;
+
+  form {
+    width: 100%;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+
+      .form-label {
+        width: 22rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-inputtext {
+    width: 50%;
+    height: 4.2rem;
+    font-size: 1.4rem;
+    padding-left: 1.2rem;
+  }
+}

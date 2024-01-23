@@ -1,0 +1,53 @@
+.box-view {
+  height: auto;
+
+  &__container {
+    position: relative;
+  }
+}
+
+.book-container {
+  //background-color: red;
+  margin-top: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  //height: 35%;
+  padding: 4rem 5rem;
+  margin-bottom: 3rem;
+}
+
+:host ::ng-deep {
+  .p-inputtext {
+    width: 100%;
+    height: 3.8rem;
+    font-size: 1.4rem;
+    padding-left: 1.2rem;
+  }
+}
+
+h3{
+  margin-top: 2rem;
+}
+
+:host ::ng-deep {
+  .p-datatable .p-datatable-thead > tr > th {
+    font-size: 1.4rem;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    font-size: 1.3rem;
+  }
+
+  .p-paginator {
+    margin-top: 1.5rem;
+  }
+
+  .p-paginator, .p-paginator-pages, .p-paginator-page {
+    font-size: 1.2rem;
+  }
+
+  .p-dialog.p-confirm-dialog, .p-confirm-dialog-message {
+    font-size: 1.4rem;
+  }
+
+}

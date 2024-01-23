@@ -1,0 +1,66 @@
+.form-container {
+  padding: 5rem 4rem;
+
+  form {
+    width: 100%;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+
+      .form-label {
+        width: 22rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+.closed-status, .progress-status {
+  font-size: 1.4rem;
+  width: 50%;
+}
+
+
+:host ::ng-deep {
+  .p-inputtext {
+    width: 70%;
+    height: 4.2rem;
+    font-size: 1.4rem;
+    padding-left: 1.2rem;
+  }
+
+  .p-autocomplete {
+    display: flex;
+    width: 50%;
+  }
+
+  .p-autocomplete-panel {
+    height: auto;
+  }
+
+  .p-autocomplete-items {
+    font-size: 1.3rem;
+  }
+
+  .p-calendar {
+    display: flex;
+    width: 50%;
+  }
+
+  .p-calendar .p-inputtext {
+    font-size: 1.4rem;
+  }
+
+  .p-datepicker table {
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid rgb(0,0,0, .1);
+  }
+
+  .p-datepicker, .p-datepicker-header, .p-datepicker-title, .p-datepicker-month, .p-datepicker-year {
+    font-size: 1.4rem;
+  }
+
+}

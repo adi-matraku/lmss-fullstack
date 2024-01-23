@@ -45,7 +45,10 @@ public class LoansController: BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<Loan>> GetLoanById(string id)
     {
-        var loan = await _context.Loans.FindAsync(id);
+        var loan = await _context.Loans
+            .Include(l => l.Book)
+            .Include(l => l.User)
+            .FirstOrDefaultAsync(l => l.Id == id);
 
         if (loan == null)
         {

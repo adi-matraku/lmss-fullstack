@@ -1,0 +1,20 @@
+.box-view, .box-view__container {
+  height: auto;
+}
+
+.loan-container {
+    //background-color: red;
+    margin-top: 3rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    //height: 55%;
+    padding: 5rem;
+    margin-bottom: 3rem;
+  }
+
+:host ::ng-deep {
+  .p-autocomplete-dd, .p-autocomplete-input, .p-autocomplete-dd .p-autocomplete-multiple-container {
+    //width: 58rem;
+    height: 3.3rem;
+  }
+}

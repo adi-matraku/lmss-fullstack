@@ -1,0 +1,35 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <app-back-button></app-back-button>
+    <h1>View Book</h1>
+
+    <div class="buttons">
+      <button type="button" class="button" routerLink="edit" ><i class="pi pi-pencil"></i>Edit</button>
+      <button type="button" class="delete-button" (click)="onBookDelete()" ><i class="pi pi-trash"></i>Delete</button>
+      <button type="button" class="audit-button"><i class="pi pi-history"></i>Audit Logs</button>
+    </div>
+
+    <ng-container *ngIf="book$ | async as book ; else loading">
+    <div class="container-content">
+      <p>ID: <span> {{book.id}} </span> </p>
+      <p>ISBN: <span> {{book.isbn}} </span> </p>
+      <p>Title: <span> {{book.title}} </span> </p>
+      <p>Author: <span> {{book.author}} </span> </p>
+      <p>Number of Copies: <span> {{book.numberOfCopies}} </span> </p>
+      <p>Status: <span> Available </span> </p>
+      <p>Created at: <span> {{book.createdAt | date:'medium'}} </span> </p>
+      <p>Updated at: <span> {{book.updatedAt | date:'medium' }} </span> </p>
+
+    </div>
+    </ng-container>
+
+    <ng-template #loading >
+      <div class="loading-box">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </ng-template>
+
+  </div>
+
+</div>
