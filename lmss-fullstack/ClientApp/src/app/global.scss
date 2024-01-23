@@ -1,0 +1,38 @@
+//$primary-color: #409eff;
+//
+//$bp-largest: 75em; // 1200px
+//$bp-large: 62.5em; // 1000px
+//$bp-medium: 50em; // 800px
+
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+
+/** Ionic CSS Variables **/
+
+
+
+:root {
+  /** responsiveness **/
+  //--bp-largest: 75em; // 1200px
+  //--bp-large: 62.5em; // 1000px
+  //--bp-medium: 50em; // 800px
+  //--bp-small: 31.25em; // 500px
+
+  /** colors **/
+  --primary-color: #409eff;
+  --secondary-color: #70aef6;
+  --tertiary-color-dark: #3d87e5;
+
+  --buttons-color: #409efc;
+  --buttons-color-secondary: #2c89e3;
+
+  --light-active-color: rgba(85, 154, 234, 0.18);
+
+  @mixin button-format {
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 500;
+    background-color: var(--primary-color);
+    border: none;
+  }
+}
