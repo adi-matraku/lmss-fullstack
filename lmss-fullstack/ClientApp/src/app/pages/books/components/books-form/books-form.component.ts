@@ -15,8 +15,8 @@ export class BooksFormComponent implements OnInit {
 
   availability = [
     { label: '--', value: null },
-    { label: 'Available', value: 'available' },
-    { label: 'Unavailable', value: 'unavailable' }
+    { label: 'Available', value: 'true' },
+    { label: 'Unavailable', value: 'false' }
   ];
 
   ngOnInit(): void {

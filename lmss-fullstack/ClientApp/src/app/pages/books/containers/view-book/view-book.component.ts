@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BookResponse} from "../../model/book-response.model";
+import {BookModel, BookResponse} from "../../model/book-response.model";
 import {catchError, map, Observable, of, switchMap, take} from "rxjs";
 import {BooksService} from "../../services/books.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -13,7 +13,7 @@ import {BooksStore} from "../../services/books.store";
 })
 export class ViewBookComponent implements OnInit {
 
-  book$: Observable<BookResponse | null> = this.route.paramMap.pipe(
+  book$: Observable<BookModel | null> = this.route.paramMap.pipe(
     map((params) => params.get('id')),
     switchMap((id) =>
       id

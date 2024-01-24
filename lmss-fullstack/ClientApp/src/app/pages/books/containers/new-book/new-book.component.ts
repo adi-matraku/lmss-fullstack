@@ -43,7 +43,7 @@ export class NewBookComponent implements OnInit {
     }
 
     this.bookService.postBook(data).subscribe({
-        next: (res) => {
+        next: () => {
           this.messageService.add({key: 'toast', detail: 'Success', severity: 'success', summary: 'Created succesfully'})
           this.store.load({})
           this.router.navigateByUrl('/book');

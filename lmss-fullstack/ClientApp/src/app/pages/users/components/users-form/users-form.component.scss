@@ -1,0 +1,86 @@
+.form-box {
+  margin-top: 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  //height: 35%;
+  padding: 4rem 5rem;
+  margin-bottom: 3rem;
+
+  .form-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1rem;
+
+    @media (max-width: 35em) {
+      display: block;
+    }
+
+  }
+
+  .form-group {
+    //background-color: red;
+    //display: inline-block;
+    margin-bottom: 2rem;
+
+    .label-box {
+      display: flex;
+      flex-direction: column;
+
+      .form-label {
+        width: auto;
+      }
+    }
+  }
+}
+
+.buttons-box {
+  text-align: end;
+  grid-column: 2;
+
+}
+
+:host ::ng-deep {
+  .p-dropdown {
+    height: 3.8rem;
+    width: 100%;
+  }
+
+  .p-inputtext {
+    height: 3.8rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    padding-left: 1.2rem;
+  }
+
+  .p-calendar {
+    display: flex;
+  }
+
+  .p-calendar .p-inputtext {
+    font-size: 1.4rem;
+  }
+
+  .p-datepicker table {
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid rgb(0,0,0, .1);
+  }
+
+  .p-datepicker, .p-datepicker-header, .p-datepicker-title, .p-datepicker-month, .p-datepicker-year {
+    font-size: 1.4rem;
+  }
+
+  .p-dropdown-panel, .p-dropdown-items, .p-dropdown-item {
+    font-size: 1.4rem;
+    background-color: white;
+    border: 1px solid rgb(0,0,0, .1);
+  }
+
+  .p-dropdown-label {
+    font-size: 1.4rem;
+    padding-left: 1.4rem;
+  }
+
+}

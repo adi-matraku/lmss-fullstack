@@ -1,0 +1,40 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <h1>Users</h1>
+
+    <ng-container *ngIf="store.state$ | async as state">
+      <button type="button" routerLink="new" class="button"><i class="pi pi-plus"></i>New</button>
+      <button type="button" class="button"><i class="pi pi-upload"></i>Import</button>
+      <button type="button" class="button">Remove</button>
+      <button type="button" [class.p-disabled]="usersSelection.length === 0"
+              class="button" (click)="onStatusChangeUser(false)"><i class="pi pi-check"></i>Enable
+      </button>
+      <button type="button" (click)="onStatusChangeUser(true)" class="button"
+              [class.p-disabled]="usersSelection.length === 0"><i class="pi pi-ban"></i>Disable
+      </button>
+      <button type="button" routerLink="/audit-logs" class="audit-button"><i class="pi pi-history"></i>Audit Logs
+      </button>
+      <button type="button" (click)="exportFile()"
+              class="audit-button">
+        <i class="pi pi-file-excel"></i>Export to Excel
+      </button>
+      <app-users-form
+        [formValue]="state.params"
+        (searchQuery)="searchParams($event)"></app-users-form>
+
+      <app-users-table
+        [rows]="state.params.pageSize"
+        [total]="state.total"
+        [users]="state.data"
+        (paginationChanged)="paginate($event)"
+        (sortChanged)="sort($event)"
+        (userSelection)="selectedUsers($event)"
+        [loading]="state.loading">
+      </app-users-table>
+
+    </ng-container>
+
+  </div>
+
+</div>

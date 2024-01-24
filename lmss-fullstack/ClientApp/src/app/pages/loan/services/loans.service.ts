@@ -25,7 +25,7 @@ export class LoansService {
   }
 
   getMember(query: string): Observable<any> {
-    let path = `${environment.apiUrl}/api/iam/user/autocomplete?limit=10`;
+    let path = `${environment.apiUrl}/api/users/autocomplete?limit=10`;
     if (query) {
       path += `&query=${query}`
     }
@@ -92,13 +92,13 @@ export class LoansService {
   deleteLoanBookParams(books: LoanBookResponse[]): HttpParams {
     let httpParams = new HttpParams();
     books.forEach(book => {
-      httpParams = httpParams.append('ids[]', book.id);
+      httpParams = httpParams.append('ids', book.id);
     })
     return httpParams;
   }
 
   singleLoanDeleteBook(id: string): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/api/loans?ids[]=${id}`)
+    return this.http.delete(`${environment.apiUrl}/api/loans?ids=${id}`)
   }
 
   editLoanBook(id: string, book: EditLoanBook): Observable<any> {
@@ -106,10 +106,7 @@ export class LoansService {
   }
 
   postLoan(data: LoanData): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/api/loans`, {
-        data: {...data}
-      }
-    )
+    return this.http.post(`${environment.apiUrl}/api/loans`, data)
   }
 
 }

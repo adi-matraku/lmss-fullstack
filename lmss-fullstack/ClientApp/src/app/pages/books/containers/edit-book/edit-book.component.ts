@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {UntypedFormBuilder, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {BooksService} from "../../services/books.service";
@@ -6,13 +6,14 @@ import {BooksStore} from "../../services/books.store";
 import {MessageService} from "primeng/api";
 import {catchError, map, Observable, of, pluck, Subscription, switchMap, tap} from "rxjs";
 import {BookResponse} from "../../model/book-response.model";
+import {BookEditModel} from "../../model/book-edit.model";
 
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
   styleUrls: ['./edit-book.component.scss']
 })
-export class EditBookComponent implements OnInit, OnDestroy {
+export class EditBookComponent implements OnDestroy {
 
   isLoading: boolean = false;
   disabled: boolean = true;
@@ -81,29 +82,24 @@ export class EditBookComponent implements OnInit, OnDestroy {
               private messageService: MessageService) {
   }
 
-  ngOnInit() {
-    // this.store.state$.subscribe((res)=>
-    //   console.log(res.loaded));
-  }
-
   onSave() {
     // console.log(this.form.value);
 
     this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
 
-    const book = {
+    const book: BookEditModel = {
       id: `${id}`,
-      data: this.form.value,
+      ...this.form.value,
     }
 
     if (id) {
       this.booksService.editBook(id, book).subscribe({
-          next: (res) => {
+          next: () => {
             this.isLoading = false;
             this.messageService.add({key: 'toast', detail: 'Success', severity: 'success', summary: 'Edited succesfully'})
             this.store.load({})
-            this.router.navigateByUrl('/book');
+            this.router.navigateByUrl('/book').then();
           },
           error: (err) => {
             this.isLoading = false;

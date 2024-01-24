@@ -25,11 +25,12 @@ public class UsersController : BaseApiController
 
     [Authorize(Roles = "Admin")]
     [HttpGet]
-    public async Task<ActionResult<PagedList<User>>> GetUsers([FromQuery] UsersParams userParams)
+    public async Task<ActionResult<UsersResponse>> GetUsers([FromQuery] UsersParams userParams)
     {
-        return await _userService.GetUsersAsync(userParams);
+        var usersResponse = await _userService.GetUsersAsync(userParams);
+        return Ok(usersResponse);
     }
-    
+
     [Authorize(Roles = "Admin")]
     [HttpGet("{id}")] // /api/users/2
     public async Task<ActionResult<User>> GetUser(string id)
@@ -121,6 +122,18 @@ public class UsersController : BaseApiController
         await _context.SaveChangesAsync();
 
         return NoContent(); // 204 No Content, indicating a successful update
+    }
+    
+    [HttpGet("Autocomplete")]
+    public async Task<ActionResult<IEnumerable<UserAutoCompleteDto>>> GetBooksForAutocomplete(string? query, int limit = 10)
+    {
+        var usersQuery = _context.Users
+            .Where(b => b.IsActive && (string.IsNullOrEmpty(query) || b.Username.Contains(query))) // Filter based on query
+            .Select(b => new UserAutoCompleteDto { Id = b.Id, Label = b.Username });
+
+        var users = await usersQuery.Take(limit).ToListAsync(); // Limit the number of results
+
+        return Ok(users);
     }
 
 }

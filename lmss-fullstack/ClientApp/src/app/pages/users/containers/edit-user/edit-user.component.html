@@ -1,0 +1,64 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <app-back-button></app-back-button>
+    <h1>Edit User</h1>
+
+    <ng-container *ngIf="book$ | async as book ; else loading">
+      <div class="form-container">
+
+        <form [formGroup]="form">
+
+          <div class="form-group">
+            <label for="id" class="form-label">Id</label>
+            <input type="text" id="id" class="form-input" formControlName="id" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" id="email" class="form-input" formControlName="email" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" class="form-input" formControlName="firstName" pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" class="form-input" formControlName="lastName" pInputText>
+          </div>
+
+          <div class="form-group">
+              <label class="form-label">Phone Number</label>
+            <p-inputMask mask="(999) 999-9999" formControlName="phoneNumber" placeholder="(999) 999-9999"></p-inputMask>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Roles</label>
+            <p-multiSelect [options]="roles" optionValue="value" formControlName="roles" optionLabel="label"></p-multiSelect>
+          </div>
+
+          <button type="submit" class="button" [disabled]="!form.valid" (click)="onSave()" >
+            <span class="center-alignment">
+              <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem" *ngIf="isLoading"></i>
+              <i class="pi pi-save" *ngIf="!isLoading"></i>
+              Save
+            </span>
+          </button>
+
+<!--          {{ form.value | json }}-->
+
+        </form>
+
+      </div>
+    </ng-container>
+
+    <ng-template #loading >
+      <div class="loading-box">
+        <app-loading-spinner></app-loading-spinner>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

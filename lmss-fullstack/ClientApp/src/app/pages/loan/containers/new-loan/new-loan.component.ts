@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription, take} from "rxjs";
 import {UntypedFormBuilder, Validators} from "@angular/forms";
 import {LoansService} from "../../services/loans.service";
@@ -14,7 +14,7 @@ import {AutocompleteModel} from "../../model/autocomplete.model";
   templateUrl: './new-loan.component.html',
   styleUrls: ['./new-loan.component.scss']
 })
-export class NewLoanComponent implements OnInit {
+export class NewLoanComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
@@ -134,11 +134,10 @@ export class NewLoanComponent implements OnInit {
     this.isLoading = true;
 
     const Loan: LoanData = {
-      book: this.form.value.book.id,
-      member: this.form.value.member.id,
-      issueDate: formattedIssueDate,
+      bookID: this.form.value.book.id,
+      userID: this.form.value.member.id,
+      loanDate: formattedIssueDate,
       dueDate: formattedDueDate,
-      status: this.status,
     }
 
     console.log(Loan);

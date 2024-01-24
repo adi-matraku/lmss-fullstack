@@ -1,0 +1,75 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <app-back-button></app-back-button>
+    <h1>New User</h1>
+
+    <div class="form-container">
+
+      <form [formGroup]="form">
+
+        <div class="form-group">
+          <label class="form-label">Emails</label>
+          <p-chips inputId="emails" formControlName="emails" [max]=2 [allowDuplicate]="false" ></p-chips>
+          <p class="error-message"
+             *ngIf="!form.get('emails')?.valid && form.get('emails')?.touched"
+          >
+            Please input a valid email.
+          </p>
+        </div>
+
+        <div class="form-group" *ngIf="multipleEmailsDisplay">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" id="firstName" class="form-input" formControlName="firstName" pInputText>
+          <p class="error-message"
+             *ngIf="!form.get('firstName')?.valid && form.get('firstName')?.touched"
+          >
+            Please input a first name.
+          </p>
+        </div>
+
+        <div class="form-group" *ngIf="multipleEmailsDisplay">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" id="lastName" class="form-input" formControlName="lastName" pInputText>
+          <p class="error-message"
+             *ngIf="!form.get('lastName')?.valid && form.get('lastName')?.touched"
+          >
+            Please input a last name.
+          </p>
+        </div>
+
+        <div class="form-group" *ngIf="multipleEmailsDisplay">
+          <label class="form-label">Phone Number</label>
+          <p-inputMask mask="(999) 999-9999" formControlName="phoneNumber" placeholder="(999) 999-9999"></p-inputMask>
+          <p class="error-message"
+             *ngIf="!form.get('phoneNumber')?.valid && form.get('phoneNumber')?.touched"
+          >
+            Please input a phone number.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Roles</label>
+          <p-multiSelect [options]="roles" optionValue="value" formControlName="roles" optionLabel="label"></p-multiSelect>
+          <p class="error-message"
+             *ngIf="!form.get('roles')?.valid && form.get('roles')?.touched"
+          >
+            Please input a role.
+          </p>
+        </div>
+
+        <button type="submit" class="button" [class.p-disabled]="!form.valid" (click)="onSave()" >
+         <span class="center-alignment">
+              <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem" *ngIf="isLoading"></i>
+              <i class="pi pi-save" *ngIf="!isLoading"></i>
+              Save
+            </span>
+        </button>
+
+        <!--          {{ form.value | json }}-->
+
+      </form>
+
+  </div>
+
+</div>

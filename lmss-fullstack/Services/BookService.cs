@@ -1,7 +1,9 @@
 using lmss_fullstack.Context;
+using lmss_fullstack.DTOs;
 using lmss_fullstack.DTOs.Book;
 using lmss_fullstack.Helpers;
 using lmss_fullstack.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace lmss_fullstack.Services;
 
@@ -14,7 +16,7 @@ public class BookService
         _context = context;
     }
     
-    public async Task<PagedList<Book>> GetBooksAsync(BookParams bookParams)
+    public async Task<BookResponse> GetBooksAsync(BookParams bookParams)
     {
         var query = _context.Books.AsQueryable();
         
@@ -46,6 +48,17 @@ public class BookService
             query = query.Where(u => u.IsActive == bookParams.AvailabilityStatus.Value);
         }
         
-        return await PagedList<Book>.CreateAsync(query, bookParams.PageNumber, bookParams.PageSize);
+        // return await PagedList<Book>.CreateAsync(query, bookParams.PageNumber, bookParams.PageSize);
+        
+        var books = await PagedList<Book>.CreateAsync(query, bookParams.PageNumber, bookParams.PageSize);
+        
+        var totalBooks = await query.CountAsync();
+
+        return new BookResponse
+        {
+            Books = books,
+            Total = totalBooks
+        };
+        
     }
 }

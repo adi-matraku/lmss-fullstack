@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Book} from "../../model/book.model";
 import {BooksService} from "../../services/books.service";
 import {BooksStore} from "../../services/books.store";
-import {BookResponse} from "../../model/book-response.model";
+import {BookModel, BookResponse} from "../../model/book-response.model";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PaginatorState} from "primeng/paginator";
@@ -29,9 +29,9 @@ export class BooksTableComponent implements OnInit {
 
   @Output() paginationChanged = new EventEmitter<PaginatorState>();
   @Output() sortChanged = new EventEmitter<string>();
-  @Output() bookChanged = new EventEmitter<BookResponse[]>();
+  @Output() bookChanged = new EventEmitter<BookModel[]>();
 
-  selectedBooks: BookResponse[] = [];
+  selectedBooks: BookModel[] = [];
 
   constructor(private booksService: BooksService, private store: BooksStore, private messageService: MessageService,
               private router: Router, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
@@ -41,7 +41,7 @@ export class BooksTableComponent implements OnInit {
     // console.log(this.selectedBooks);
   }
 
-  selectionChange(event: BookResponse[]) {
+  selectionChange(event: BookModel[]) {
     console.log(event);
     this.bookChanged.emit(event)
   }
@@ -58,7 +58,7 @@ export class BooksTableComponent implements OnInit {
     if (!!event.sortField && !!event.sortOrder) this.sortChanged.emit(sortQuery);
   }
 
-  onDeleteConfirmation(rowData: BookResponse) {
+  onDeleteConfirmation(rowData: BookModel) {
     // console.log(rowData);
     // console.log(rowData.id);
     this.confirmationService.confirm({
@@ -82,7 +82,7 @@ export class BooksTableComponent implements OnInit {
     })
   }
 
-  onView(rowData: BookResponse) {
+  onView(rowData: BookModel) {
     console.log(rowData);
     let id = rowData.id;
     console.log(id);
@@ -92,7 +92,7 @@ export class BooksTableComponent implements OnInit {
     }
   }
 
-  onEdit(rowData: BookResponse) {
+  onEdit(rowData: BookModel) {
     console.log(rowData);
     let id = rowData.id;
     // console.log(id);

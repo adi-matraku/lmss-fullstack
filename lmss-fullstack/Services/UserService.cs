@@ -15,7 +15,7 @@ public class UserService
         _context = context;
     }
 
-    public async Task<PagedList<User>> GetUsersAsync(UsersParams userParams)
+    public async Task<UsersResponse> GetUsersAsync(UsersParams userParams)
     {
         var query = _context.Users.AsQueryable();
         
@@ -58,7 +58,15 @@ public class UserService
             query = query.Where(u => u.CreatedAt >= startDate && u.CreatedAt <= endDate);
         }
         
-        return await PagedList<User>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+        var users = await PagedList<User>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+        
+        var totalUsers = await query.CountAsync();
+
+        return new UsersResponse
+        {
+            Users = users,
+            Total = totalUsers
+        };
     }
    
 }

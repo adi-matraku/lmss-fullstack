@@ -16,14 +16,12 @@ export class RoleGuard  {
 
     const role = this.authStore.state.user?.role
     console.log(role);
-    const routeData = route.data['role']
-
-    const intersection = intersect(role, routeData)
+    console.log(route.data['role']);
 
     if (route.data['role'].includes(role)) {
       return true;
     }
-    this.router.navigateByUrl('/loan')
+    this.router.navigateByUrl('/loan').then()
     return false;
 
     // if(intersection.length > 0) {

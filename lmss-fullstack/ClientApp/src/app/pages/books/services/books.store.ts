@@ -5,16 +5,11 @@ import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
 import {BookResponse} from "../model/book-response.model";
 import {BooksService} from "./books.service";
 
-export interface BookServerResponse {
-  rows: BookResponse[];
-  count: number;
-}
-
 export interface BooksParams {
   orderBy: string | null;
-  limit: number;
-  offset: number;
-  isbn: string| null;
+  pageSize: number;
+  pageNumber: number;
+  isbn: string | null;
   title: string | null;
   status: string | null;
   author: string | null;
@@ -33,8 +28,8 @@ export const initialState: BooksState = {
   data: [],
   params: {
     orderBy: null,
-    limit: 10,
-    offset: 0,
+    pageSize: 10,
+    pageNumber: 1,
     isbn: null,
     title: null,
     status: null,
@@ -47,7 +42,7 @@ export const initialState: BooksState = {
 }
 
 @Injectable()
-export class BooksStore extends ComponentStore<BooksState>{
+export class BooksStore extends ComponentStore<BooksState> {
 
   constructor(private booksService: BooksService) {
     super(initialState);
@@ -59,18 +54,18 @@ export class BooksStore extends ComponentStore<BooksState>{
   }
 
   load = this.effect((params$: Observable<Partial<BooksParams>>) => params$
-    .pipe(tap(() => this.patchState({ loading: true, loaded: false, error: null })),
+    .pipe(tap(() => this.patchState({loading: true, loaded: false, error: null})),
       switchMap(params => {
         const currentParams = this.params;
-        const newParams = { ...currentParams, ...params };
-        return this.booksService.getAll(newParams).pipe(tap((response: BookServerResponse) =>
+        const newParams = {...currentParams, ...params};
+        return this.booksService.getAll(newParams).pipe(tap((response: BookResponse) =>
             this.patchState(
               {
                 loading: false,
                 loaded: true,
-                data: response.rows,
+                data: response.books,
                 params: newParams,
-                total: Number(response.count)
+                total: Number(response.total)
               })
           ), catchError(error => {
               this.patchState({
@@ -83,7 +78,6 @@ export class BooksStore extends ComponentStore<BooksState>{
         );
       })
     ));
-
 
 
   //  this.store.load({})

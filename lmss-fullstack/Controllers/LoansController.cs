@@ -116,12 +116,44 @@ public class LoansController: BaseApiController
         return Ok(loan);
     }
     
+    // [Authorize(Roles = "Admin")]
+    // [HttpDelete("{id}")]
+    // public async Task<IActionResult> DeleteBook(string id)
+    // {
+    //     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
+    //
+    //     var user = await _context.Users.FindAsync(userId);
+    //
+    //     if (user == null)
+    //     {
+    //         return NotFound("User not found");
+    //     }
+    //
+    //     var loan = await _context.Loans.FindAsync(id);
+    //
+    //     if (loan == null)
+    //     {
+    //         return NotFound("Loan not found");
+    //     }
+    //     
+    //     var book = await _context.Books.FindAsync(loan.BookID);
+    //     if (book != null)
+    //     {
+    //         book.Stock++;
+    //     }
+    //
+    //     loan.IsActive = false;
+    //
+    //     await _context.SaveChangesAsync();
+    //
+    //     return NoContent();
+    // }
+    
     [Authorize(Roles = "Admin")]
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBook(string id)
+    [HttpDelete]
+    public async Task<IActionResult> DeleteLoans([FromQuery] string[] ids)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
-
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var user = await _context.Users.FindAsync(userId);
 
         if (user == null)
@@ -129,25 +161,25 @@ public class LoansController: BaseApiController
             return NotFound("User not found");
         }
 
-        var loan = await _context.Loans.FindAsync(id);
-
-        if (loan == null)
+        foreach (var id in ids)
         {
-            return NotFound("Loan not found");
-        }
-        
-        var book = await _context.Books.FindAsync(loan.BookID);
-        if (book != null)
-        {
-            book.Stock++;
-        }
+            var loan = await _context.Loans.FindAsync(id);
+            if (loan != null && loan.IsActive)
+            {
+                var book = await _context.Books.FindAsync(loan.BookID);
+                if (book != null)
+                {
+                    book.Stock++;
+                }
 
-        loan.IsActive = false;
+                loan.IsActive = false;
+            }
+        }
 
         await _context.SaveChangesAsync();
-
         return NoContent();
     }
+
     
     // delete from db
     // [HttpDelete("{id}")]

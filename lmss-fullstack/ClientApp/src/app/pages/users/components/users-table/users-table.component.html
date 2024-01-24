@@ -1,0 +1,48 @@
+<p-table [lazy]="true" (onLazyLoad)="sort($event)"
+         [columns]="cols"
+         [value]="users"
+         [customSort]="true" [(selection)]="selectedUsers" (selectionChange)="selectionChange($event)"
+         selectionMode="multiple"
+         dataKey="id"
+         [loading]="loading">
+<!--  <ng-template pTemplate="caption">-->
+<!--    <div class="flex">-->
+<!--      <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"-->
+<!--              class="p-button-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem">
+      </th>
+      <th *ngFor="let column of columns"
+          [pSortableColumn]="column.field">{{column.header}} <p-sortIcon [field]="column.field" ></p-sortIcon>
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
+      </td>
+      <td>{{rowData.email}}</td>
+      <td>{{rowData.firstName}}</td>
+      <td>{{rowData.role == 0 ? 'Admin' : 'User'}} </td>
+      <td >
+        <span [ngClass]="{ 'closed-status': rowData.disabled === true, 'progress-status': rowData.disabled === false}">
+          {{rowData.disabled === false ? 'Enabled' : 'disabled' | titlecase}}</span>
+      </td>
+      <td>{{rowData.createdAt | date}} </td>
+      <td>
+        <button class="button-link" (click)="onView(rowData)"  >View</button>
+        <button class="button-link" (click)="onEdit(rowData)" >Edit</button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator
+  [rowsPerPageOptions]="[10,20,50]"
+  [rows]="rows" [totalRecords]="total"
+  (onPageChange)="paginate($event)">
+</p-paginator>

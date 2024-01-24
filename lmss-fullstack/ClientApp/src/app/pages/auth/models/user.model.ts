@@ -7,7 +7,6 @@ export interface User {
   password: string,
   firstName: string,
   fullName: string,
-  avatars: [],
   createdAt: string,
   updatedAt: Date,
   updatedBy: Date,

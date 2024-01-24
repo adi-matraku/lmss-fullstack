@@ -4,7 +4,7 @@ import {BooksService} from "../../services/books.service";
 import {BooksTableComponent} from "../../components/books-table/books-table.component";
 import {take} from "rxjs";
 import {ConfirmationService, MessageService} from "primeng/api";
-import {BookResponse} from "../../model/book-response.model";
+import {BookModel, BookResponse} from "../../model/book-response.model";
 import {exportExcel} from "../../../../shared/export-excel/export-excel.function";
 import {PaginatorState} from "primeng/paginator/paginator.interface";
 
@@ -15,7 +15,7 @@ import {PaginatorState} from "primeng/paginator/paginator.interface";
 })
 export class BooksComponent implements OnInit {
 
-  booksSelection: BookResponse[] = [];
+  booksSelection: BookModel[] = [];
 
   @ViewChild(BooksTableComponent) table!: BooksTableComponent;
 
@@ -35,18 +35,19 @@ export class BooksComponent implements OnInit {
     exportExcel(this.table.books)
   }
 
-  bookChanged(event: BookResponse[]) {
+  bookChanged(event: BookModel[]) {
     console.log(event);
     this.booksSelection = event
   }
 
   paginate(event: PaginatorState) {
-    this.store.load({limit: event.rows, offset: event.first})
+    console.log(event);
+    this.store.load({pageSize: event.rows, pageNumber: event.page ? event.page + 1 : 1})
   }
 
   sort(orderBy: string): void {
     console.log(orderBy)
-    this.store.load({orderBy, offset: 0});
+    this.store.load({orderBy, pageNumber: 1});
   }
 
   searchParams(event: any) {

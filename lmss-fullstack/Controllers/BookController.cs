@@ -1,12 +1,14 @@
 using System.Security.Claims;
 using AutoMapper;
 using lmss_fullstack.Context;
+using lmss_fullstack.DTOs;
 using lmss_fullstack.DTOs.Book;
 using lmss_fullstack.Helpers;
 using lmss_fullstack.Models;
 using lmss_fullstack.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace lmss_fullstack.Controllers;
 
@@ -27,9 +29,10 @@ public class BookController: BaseApiController
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<PagedList<Book>>> GetBooks([FromQuery] BookParams bookParams)
+    public async Task<ActionResult<PagedList<BookResponse>>> GetBooks([FromQuery] BookParams bookParams)
     {
-        return await _bookService.GetBooksAsync(bookParams);
+        var booksResponse = await _bookService.GetBooksAsync(bookParams);
+        return Ok(booksResponse);
     }
     
     [Authorize]
@@ -113,13 +116,12 @@ public class BookController: BaseApiController
 
         return Ok(book); // Or return Ok(book) if you want to return the updated book
     }
-
+    
     [Authorize(Roles = "Admin")]
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBook(string id)
+    [HttpDelete]
+    public async Task<IActionResult> DeleteBooks([FromQuery] string[] ids)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
-
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var user = await _context.Users.FindAsync(userId);
 
         if (user == null)
@@ -127,17 +129,55 @@ public class BookController: BaseApiController
             return NotFound("User not found");
         }
 
-        var book = await _context.Books.FindAsync(id);
-
-        if (book == null)
+        foreach (var id in ids)
         {
-            return NotFound("Book not found");
+            var book = await _context.Books.FindAsync(id);
+            if (book != null && book.IsActive)
+            {
+                book.IsActive = false;
+            }
         }
 
-        book.IsActive = false;
-
         await _context.SaveChangesAsync();
-
         return NoContent();
+    }
+
+    // [Authorize(Roles = "Admin")]
+    // [HttpDelete("{id}")]
+    // public async Task<IActionResult> DeleteBook(string id)
+    // {
+    //     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
+    //
+    //     var user = await _context.Users.FindAsync(userId);
+    //
+    //     if (user == null)
+    //     {
+    //         return NotFound("User not found");
+    //     }
+    //
+    //     var book = await _context.Books.FindAsync(id);
+    //
+    //     if (book == null)
+    //     {
+    //         return NotFound("Book not found");
+    //     }
+    //
+    //     book.IsActive = false;
+    //
+    //     await _context.SaveChangesAsync();
+    //
+    //     return NoContent();
+    // }
+    
+    [HttpGet("Autocomplete")]
+    public async Task<ActionResult<IEnumerable<BookAutoCompleteDto>>> GetBooksForAutocomplete(string? query, int limit = 10)
+    {
+        var booksQuery = _context.Books
+            .Where(b => b.IsActive && (string.IsNullOrEmpty(query) || b.Title.Contains(query))) // Filter based on query
+            .Select(b => new BookAutoCompleteDto { Id = b.Id, Label = b.Title });
+
+        var books = await booksQuery.Take(limit).ToListAsync(); // Limit the number of results
+
+        return Ok(books);
     }
 }

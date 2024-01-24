@@ -18,7 +18,7 @@
     </div>
 
     <app-books-table
-      [rows]="state.params.limit"
+      [rows]="state.params.pageSize"
       [total]="state.total"
       [books]="state.data"
       (paginationChanged)="paginate($event)"

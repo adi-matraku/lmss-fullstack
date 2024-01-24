@@ -1,14 +1,19 @@
 export interface BookResponse {
-  _id: string,
+  total: number;
+  books: BookModel[];
+}
+
+export interface BookModel {
+  id: string
   isbn: string,
   title: string,
   author: string,
   numberOfCopies: number,
-  createdBy: string,
-  updatedBy: string,
-  images: [],
+  stock: number,
+  availabilityStatus: number,
   createdAt: string,
   updatedAt: string,
-  __v: 0,
-  id: string
+  createdBy: string,
+  updatedBy: string,
+  isActive: boolean
 }
