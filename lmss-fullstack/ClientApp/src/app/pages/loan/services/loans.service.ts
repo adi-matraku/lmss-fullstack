@@ -5,7 +5,7 @@ import {environment} from "../../../../environments/environment";
 import {LoansParams} from "./loans.store";
 import {BookResponse} from "../../books/model/book-response.model";
 import {LoanBookResponse} from "../model/loan-book-response.model";
-import {EditedLoanBook} from "../model/edit-loan-book.model";
+import {EditLoanBook} from "../model/edit-loan-book.model";
 import {LoanData} from "../model/post-loan-model";
 
 @Injectable({
@@ -43,15 +43,15 @@ export class LoansService {
   getLoanParams(params: LoansParams) {
 
     let httpParams = new HttpParams();
-    httpParams = httpParams.set('limit', params.limit)
-    httpParams = httpParams.set('offset', params.offset)
+    httpParams = httpParams.set('pageSize', params.pageSize)
+    httpParams = httpParams.set('pageNumber', params.pageNumber)
 
-    if (params.book) {
-      httpParams = httpParams.set('bookID', params.book)
+    if (params.bookID) {
+      httpParams = httpParams.set('bookID', params.bookID)
     }
 
-    if (params.member) {
-      httpParams = httpParams.set('userID', params.member)
+    if (params.userID) {
+      httpParams = httpParams.set('userID', params.userID)
     }
 
     if (params.status) {
@@ -101,7 +101,7 @@ export class LoansService {
     return this.http.delete(`${environment.apiUrl}/api/loans?ids[]=${id}`)
   }
 
-  editLoanBook(id: string, book: EditedLoanBook): Observable<any> {
+  editLoanBook(id: string, book: EditLoanBook): Observable<any> {
     return this.http.put(`${environment.apiUrl}/api/loans/${id}`, book)
   }
 

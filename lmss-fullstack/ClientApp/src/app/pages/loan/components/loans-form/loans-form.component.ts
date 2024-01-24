@@ -28,8 +28,8 @@ export class LoansFormComponent implements OnInit {
 
   @Input() set formValue(params: LoansParams) {
     this.form.patchValue({
-      book: params.book,
-      member: params.member,
+      book: params.bookID,
+      member: params.userID,
       issueFromDateRange: params.issueFromDateRange,
       issueToDateRange: params.issueToDateRange,
       dueFromDateRange: params.dueFromDateRange,

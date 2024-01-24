@@ -6,10 +6,10 @@ import {LoanBookResponse} from "../model/loan-book-response.model";
 
 export interface LoansParams {
   orderBy: string | null;
-  limit: number;
-  offset: number;
-  member: string| null;
-  book: string | null;
+  pageSize: number;
+  pageNumber: number;
+  userID: string| null;
+  bookID: string | null;
   status: string | null;
   issueFromDateRange: string | null;
   issueToDateRange: string | null;
@@ -32,10 +32,10 @@ export const initialState: LoansState = {
   data: [],
   params: {
     orderBy: null,
-    limit: 10,
-    offset: 0,
-    member: null,
-    book: null,
+    pageSize: 10,
+    pageNumber: 1,
+    userID: null,
+    bookID: null,
     status: null,
     issueFromDateRange: null,
     issueToDateRange: null,

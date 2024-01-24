@@ -8,6 +8,7 @@ import {LoanBookResponse} from "../../model/loan-book-response.model";
 import {formatDate} from "@angular/common";
 import {LoansStore} from "../../services/loans.store";
 import {formatDates} from "../../utils/formatDates.function";
+import {EditLoanBook} from "../../model/edit-loan-book.model";
 
 @Component({
   selector: 'app-edit-loan',
@@ -18,14 +19,7 @@ export class EditLoanComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
 
-  editObject!: {
-    book: string,
-    member: string,
-    issueDate: string,
-    dueDate: string,
-    returnDate: string | null,
-    status: string,
-  }
+  editObject!: EditLoanBook;
 
   subscription: Subscription | null = null;
   disabled = true;
@@ -49,16 +43,16 @@ export class EditLoanComponent implements OnInit, OnDestroy {
             this.form.patchValue({
               id: response.id,
               book: response.book.title,
-              member: response.member.email,
-              issueDate: this.formatNormalDates(response.issueDate),
+              member: response.user.email,
+              issueDate: this.formatNormalDates(response.loanDate),
               dueDate: this.formatNormalDates(response.dueDate),
               status: response.status,
             });
 
             this.editObject = {
-              book: response.book.id,
-              member: response.member.id,
-              issueDate: response.issueDate,
+              bookID: response.book.id,
+              userID: response.user.id,
+              issueDate: response.loanDate,
               dueDate: response.dueDate,
               returnDate: '',
               status: response.status,
@@ -105,20 +99,20 @@ export class EditLoanComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    const book = {
-      id: `${id}`,
-      data: this.editObject,
-    }
+    // const book = {
+    //   id: `${id}`,
+    //   data: this.editObject,
+    // }
 
     if (id) {
-      this.loansService.editLoanBook(id, book).subscribe({
+      this.loansService.editLoanBook(id, this.editObject).subscribe({
           next: (res) => {
             console.log(res);
             console.log(this.editObject);
             this.isLoading = false
             this.messageService.add({key: 'toast', detail: 'Success', severity: 'success', summary: 'Edited succesfully'})
             this.store.load({})
-            this.router.navigateByUrl('/loan');
+            this.router.navigateByUrl('/loan').then();
           },
           error: (err) => {
             this.isLoading = false

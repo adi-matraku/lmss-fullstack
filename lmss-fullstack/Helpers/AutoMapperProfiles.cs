@@ -20,10 +20,19 @@ public class AutoMapperProfiles: Profile
             .ForMember(dest => dest.PhoneNumber,
                 opt => opt.MapFrom((src, dest, destMember, context) => src.PhoneNumber ?? destMember));
 
+        CreateMap<Book, BookGetDto>();
+        CreateMap<BookGetDto, Book>();
+        
         CreateMap<Book, BookCreateDto>();
         CreateMap<BookCreateDto, Book>();
         
         CreateMap<LoanCreateDto, Loan>();
         CreateMap<LoanUpdate, Loan>();
+
+        CreateMap<LoanDto, Loan>();
+        CreateMap<Loan, LoanDto>();
+
+        CreateMap<MeDto, User>();
+        CreateMap<User, MeDto>();
     }
 }

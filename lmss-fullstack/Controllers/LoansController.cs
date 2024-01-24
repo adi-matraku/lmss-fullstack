@@ -43,7 +43,7 @@ public class LoansController: BaseApiController
 
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<ActionResult<Loan>> GetLoanById(string id)
+    public async Task<ActionResult<LoanDto>> GetLoanById(string id)
     {
         var loan = await _context.Loans
             .Include(l => l.Book)
@@ -54,8 +54,7 @@ public class LoansController: BaseApiController
         {
             return NotFound("Loan not found");
         }
-
-        return loan;
+        return  _mapper.Map<LoanDto>(loan);
     }
     
     [Authorize(Roles = "Admin")]

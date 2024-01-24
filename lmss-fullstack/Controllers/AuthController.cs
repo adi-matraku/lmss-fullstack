@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using AutoMapper;
 using lmss_fullstack.Context;
 using lmss_fullstack.DTOs;
 using lmss_fullstack.Interfaces;
@@ -15,11 +16,12 @@ public class AuthController: BaseApiController
 {
     private readonly DataContext _context;
     private readonly ITokenService _tokenService;
-
-    public AuthController(DataContext context, ITokenService tokenService)
+    private readonly IMapper _mapper;
+    public AuthController(DataContext context, ITokenService tokenService, IMapper mapper)
     {
         _context = context;
         _tokenService = tokenService;
+        _mapper = mapper;
     }
 
     [HttpPost("register")] // /api/auth/register
@@ -81,7 +83,7 @@ public class AuthController: BaseApiController
     
     [Authorize] // Require authorization for the /me endpoint
     [HttpGet("me")]
-    public async Task<ActionResult<User>> GetCurrentUser()
+    public async Task<ActionResult<MeDto>> GetCurrentUser()
     {
         var id = User.FindFirstValue(ClaimTypes.NameIdentifier); // Retrieve id from the token claims
 
@@ -89,7 +91,7 @@ public class AuthController: BaseApiController
 
         if (user == null) return NotFound("User not found");
 
-        return user;
+        return   _mapper.Map<MeDto>(user);
     }
     
     private async Task<bool> UserExists(string email)

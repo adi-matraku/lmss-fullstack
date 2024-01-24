@@ -1,0 +1,64 @@
+<div class="box-view">
+
+  <div class="box-view__container">
+    <app-back-button></app-back-button>
+    <h1>Edit Loan</h1>
+
+    <ng-container *ngIf="book$ | async as book;">
+      <div class="form-container">
+
+        <form [formGroup]="form">
+
+          <div class="form-group">
+            <label for="id" class="form-label">Id</label>
+            <input type="text" id="id" class="form-input" formControlName="id" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="book" class="form-label">Book</label>
+            <input type="text" id="book" class="form-input" formControlName="book" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="member" class="form-label">Member</label>
+            <input type="text" id="member" class="form-input" formControlName="member" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="issueDate" class="form-label">Issue Date</label>
+            <input type="text" id="issueDate" class="form-input" formControlName="issueDate" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+            <label for="dueDate" class="form-label">Due Date</label>
+            <input type="text" id="dueDate" class="form-input" formControlName="dueDate" readonly pInputText>
+          </div>
+
+          <div class="form-group">
+              <label class="form-label">Return Date</label>
+              <p-calendar [readonlyInput]="true" inputId="range" formControlName="returnDate">
+              </p-calendar>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <span class="book-status" [ngClass]="{
+            'closed-status': statusValue === 'Closed' || 'overdue', 'progress-status': statusValue === 'inProgress'}" >
+              {{ statusValue === 'inProgress' ? 'In Progress' : statusValue | titlecase  }} </span>
+          </div>
+
+          <button type="submit" class="button" [disabled]="!form.valid" (click)="onSave()" >
+             <span class="center-alignment">
+                <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem" *ngIf="isLoading"></i>
+                <i class="pi pi-save" *ngIf="!isLoading"></i>
+                Save
+             </span>
+          </button>
+
+        </form>
+
+      </div>
+    </ng-container>
+
+  </div>
+</div>
