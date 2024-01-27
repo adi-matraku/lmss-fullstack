@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {catchError, map, Observable, of, switchMap, take} from "rxjs";
-import {LoanBookResponse} from "../../model/loan-book-response.model";
+import {LoanBookResponse, LoanModel} from "../../model/loan-book-response.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoansService} from "../../services/loans.service";
 import {ConfirmationService, MessageService} from "primeng/api";
@@ -13,7 +13,7 @@ import {LoansStore} from "../../services/loans.store";
 })
 export class ViewLoanComponent implements OnInit {
 
-  book$: Observable<LoanBookResponse | null> = this.route.paramMap.pipe(
+  book$: Observable<LoanModel | null> = this.route.paramMap.pipe(
     map((params) => params.get('id')),
     switchMap((id) =>
       id

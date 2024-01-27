@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {LoansParams} from "./loans.store";
 import {BookResponse} from "../../books/model/book-response.model";
-import {LoanBookResponse} from "../model/loan-book-response.model";
+import {LoanBookResponse, LoanModel} from "../model/loan-book-response.model";
 import {EditLoanBook} from "../model/edit-loan-book.model";
 import {LoanData} from "../model/post-loan-model";
 
@@ -85,11 +85,11 @@ export class LoansService {
     return httpParams;
   }
 
-  deleteLoans(books: LoanBookResponse[]): Observable<any> {
+  deleteLoans(books: LoanModel[]): Observable<any> {
     return this.http.delete(`${environment.apiUrl}/api/loans`, {params: this.deleteLoanBookParams(books)})
   }
 
-  deleteLoanBookParams(books: LoanBookResponse[]): HttpParams {
+  deleteLoanBookParams(books: LoanModel[]): HttpParams {
     let httpParams = new HttpParams();
     books.forEach(book => {
       httpParams = httpParams.append('ids', book.id);

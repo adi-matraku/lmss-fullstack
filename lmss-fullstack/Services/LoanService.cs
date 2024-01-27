@@ -15,7 +15,7 @@ public class LoanService
         _context = context;
     }
     
-    public async Task<PagedList<Loan>> GetLoansAsync(LoanParams loanParams)
+    public async Task<LoanResponse> GetLoansAsync(LoanParams loanParams)
     {
         var query = _context.Loans
             .Include(l => l.Book)
@@ -53,8 +53,17 @@ public class LoanService
         {
             query = query.Where(l => l.ReturnDate == loanParams.ReturnDate.Value);
         }
+     
+        var loans = await PagedList<Loan>.CreateAsync(query, loanParams.PageNumber, loanParams.PageSize);
         
-        return await PagedList<Loan>.CreateAsync(query, loanParams.PageNumber, loanParams.PageSize);
+        var totalLoans = await query.CountAsync();
+
+        return new LoanResponse
+        {
+            Loans = loans,
+            Total = totalLoans
+        };
+        // return await PagedList<Loan>.CreateAsync(query, loanParams.PageNumber, loanParams.PageSize);
     }
 
 }

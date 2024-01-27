@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LoanBookResponse} from "../../model/loan-book-response.model";
+import {LoanBookResponse, LoanModel} from "../../model/loan-book-response.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoansService} from "../../services/loans.service";
 import {LoansStore} from "../../services/loans.store";
@@ -14,7 +14,7 @@ import {TableLazyLoadEvent} from "primeng/table";
 })
 export class LoansTableComponent implements OnInit {
 
-  @Input() books!: LoanBookResponse[];
+  @Input() books!: LoanModel[];
   @Input() total!: number;
   @Input() rows!: number;
 
@@ -31,9 +31,9 @@ export class LoansTableComponent implements OnInit {
 
   @Output() paginationChanged = new EventEmitter<PaginatorState>();
   @Output() sortChanged = new EventEmitter<string>();
-  @Output() loansSelection = new EventEmitter<LoanBookResponse[]>();
+  @Output() loansSelection = new EventEmitter<LoanModel[]>();
 
-  selectedBooks: LoanBookResponse[] = [];
+  selectedBooks: LoanModel[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute,
               private loansService: LoansService,
@@ -45,7 +45,7 @@ export class LoansTableComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectionChange(event: LoanBookResponse[]) {
+  selectionChange(event: LoanModel[]) {
     console.log(event);
     this.loansSelection.emit(event)
   }
@@ -62,7 +62,7 @@ export class LoansTableComponent implements OnInit {
     if (!!event.sortField && !!event.sortOrder) this.sortChanged.emit(sortQuery);
   }
 
-  onView(rowData: LoanBookResponse) {
+  onView(rowData: LoanModel) {
     console.log(rowData);
     let id = rowData.id;
     console.log(id);
@@ -72,7 +72,7 @@ export class LoansTableComponent implements OnInit {
     }
   }
 
-  onDelete(rowData: LoanBookResponse) {
+  onDelete(rowData: LoanModel) {
     console.log(rowData);
     this.confirmationService.confirm({
       accept: () => {
@@ -95,7 +95,7 @@ export class LoansTableComponent implements OnInit {
     })
   }
 
-  onEdit(rowData: LoanBookResponse) {
+  onEdit(rowData: LoanModel) {
     console.log(rowData);
     let id = rowData.id;
 

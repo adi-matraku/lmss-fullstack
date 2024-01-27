@@ -36,9 +36,11 @@ public class LoansController: BaseApiController
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<PagedList<Loan>>> GetLoans([FromQuery] LoanParams loanParams)
+    public async Task<ActionResult<PagedList<LoanResponse>>> GetLoans([FromQuery] LoanParams loanParams)
     {
-        return await _loanService.GetLoansAsync(loanParams);
+        // return await _loanService.GetLoansAsync(loanParams);
+        var loanResponse = await _loanService.GetLoansAsync(loanParams);
+        return Ok(loanResponse);
     }
 
     [Authorize]

@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {ComponentStore} from "@ngrx/component-store";
 import {LoansService} from "./loans.service";
 import {catchError, EMPTY, Observable, switchMap, tap} from "rxjs";
-import {LoanBookResponse} from "../model/loan-book-response.model";
+import {LoanBookResponse, LoanModel} from "../model/loan-book-response.model";
 
 export interface LoansParams {
   orderBy: string | null;
@@ -20,7 +20,7 @@ export interface LoansParams {
 }
 
 export interface LoansState {
-  data: LoanBookResponse[],
+  data: LoanModel[],
   params: LoansParams,
   loading: boolean;
   loaded: boolean;
@@ -68,14 +68,14 @@ export class LoansStore extends ComponentStore<LoansState> {
       switchMap(params => {
         const currentParams = this.params;
         const newParams = { ...currentParams, ...params };
-        return this.loansService.getAll(newParams).pipe(tap((response: LoanBookResponse[]) =>
+        return this.loansService.getAll(newParams).pipe(tap((response: LoanBookResponse) =>
             this.patchState(
               {
                 loading: false,
                 loaded: true,
-                data: response,
+                data: response.loans,
                 params: newParams,
-                total: Number(response.length)
+                total: Number(response.total)
               })
           ), catchError(error => {
               this.patchState({
