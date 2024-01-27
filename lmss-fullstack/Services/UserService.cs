@@ -68,5 +68,10 @@ public class UserService
             Total = totalUsers
         };
     }
+    
+    public async Task<bool> UserExists(string email)
+    {
+        return await _context.Users.AnyAsync(user => user.Email == email.ToLower());
+    }
    
 }

@@ -1,8 +1,9 @@
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using AutoMapper;
 using lmss_fullstack.Context;
 using lmss_fullstack.DTOs;
-using lmss_fullstack.Helpers;
 using lmss_fullstack.Models;
 using lmss_fullstack.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -30,7 +31,7 @@ public class UsersController : BaseApiController
         var usersResponse = await _userService.GetUsersAsync(userParams);
         return Ok(usersResponse);
     }
-
+    
     [Authorize(Roles = "Admin")]
     [HttpGet("{id}")] // /api/users/2
     public async Task<ActionResult<User>> GetUser(string id)
@@ -44,6 +45,38 @@ public class UsersController : BaseApiController
         }
 
         return user;
+    }
+    
+    [HttpPost("create")]
+    public async Task<ActionResult<MeDto>> Register(CreateUserDto createUserDto)
+    {
+        if (await _userService.UserExists(createUserDto.Email)) return BadRequest("Email is taken");
+        
+        var defaultPassword = "password";
+        
+        // password salt
+        using var hmac = new HMACSHA512();
+
+        var user = new User
+        {
+            Username = createUserDto.Username,
+            Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(defaultPassword)),
+            PasswordSalt = hmac.Key,
+            Role = createUserDto.Role,
+            Email = createUserDto.Email,
+            FirstName = createUserDto.FirstName,
+            LastName = createUserDto.LastName,
+            PhoneNumber = createUserDto?.PhoneNumber,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow,
+            UpdatedBy = createUserDto.Username,
+            IsActive = true
+        };
+
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+
+        return  _mapper.Map<MeDto>(user);
     }
     
     [Authorize(Roles = "Admin")]
