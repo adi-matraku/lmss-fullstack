@@ -6,8 +6,10 @@ export interface User {
   email: string,
   password: string,
   firstName: string,
+  lastName: string,
   fullName: string,
   createdAt: string,
   updatedAt: Date,
   updatedBy: Date,
+  isActive: boolean
 }

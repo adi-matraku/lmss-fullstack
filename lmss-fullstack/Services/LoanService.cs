@@ -39,20 +39,38 @@ public class LoanService
             query = query.Where(u => u.Status == loanParams.Status);
         }
         
-        if (loanParams.LoanDate.HasValue)
+        if (loanParams.LoanDateStart.HasValue && loanParams.LoanDateEnd.HasValue)
         {
-            query = query.Where(l => l.LoanDate >= loanParams.LoanDate.Value);
+            query = query.Where(l => l.LoanDate >= loanParams.LoanDateStart.Value 
+                                     && l.LoanDate <= loanParams.LoanDateEnd.Value);
         }
-
-        if (loanParams.DueDate.HasValue)
+        
+        if (loanParams.DueDateStart.HasValue && loanParams.DueDateEnd.HasValue)
         {
-            query = query.Where(l => l.DueDate <= loanParams.DueDate.Value);
+            query = query.Where(l => l.LoanDate >= loanParams.DueDateStart.Value 
+                                     && l.LoanDate <= loanParams.DueDateEnd.Value);
         }
-
-        if (loanParams.ReturnDate.HasValue)
+        
+        if (loanParams.ReturnDateStart.HasValue && loanParams.ReturnDateEnd.HasValue)
         {
-            query = query.Where(l => l.ReturnDate == loanParams.ReturnDate.Value);
+            query = query.Where(l => l.LoanDate >= loanParams.ReturnDateStart.Value 
+                                     && l.LoanDate <= loanParams.ReturnDateEnd.Value);
         }
+        
+        // if (loanParams.LoanDate.HasValue)
+        // {
+        //     query = query.Where(l => l.LoanDate >= loanParams.LoanDate.Value);
+        // }
+        //
+        // if (loanParams.DueDate.HasValue)
+        // {
+        //     query = query.Where(l => l.DueDate <= loanParams.DueDate.Value);
+        // }
+        //
+        // if (loanParams.ReturnDate.HasValue)
+        // {
+        //     query = query.Where(l => l.ReturnDate == loanParams.ReturnDate.Value);
+        // }
      
         var loans = await PagedList<Loan>.CreateAsync(query, loanParams.PageNumber, loanParams.PageSize);
         

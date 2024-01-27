@@ -18,6 +18,7 @@ export interface UsersParams {
   createdAtSecond: string | null;
   email: string | null;
   name: string | null;
+  lastName: string | null;
   status: string | null;
   role: string | null;
 }
@@ -42,6 +43,7 @@ export const initialState: UsersState = {
     createdAtSecond: null,
     email: null,
     name: null,
+    lastName: null,
     status: null,
     role: null,
   },

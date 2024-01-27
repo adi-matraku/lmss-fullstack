@@ -7,7 +7,7 @@
 
               <p-autoComplete
                 dataKey="id"
-                field="label"
+                optionLabel="label"
                 [dropdown]="true"
                 (completeMethod)="search($event)"
                 (onSelect)="select($event)"
@@ -30,7 +30,7 @@
 
         <p-autoComplete
           dataKey="id"
-          field="label"
+          optionLabel="label"
           (completeMethod)="searchMember($event)"
           [suggestions]="members"
           [dropdown]="true"

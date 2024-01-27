@@ -27,11 +27,11 @@
         <p-tableCheckbox [value]="rowData" [index]="rowIndex"></p-tableCheckbox>
       </td>
       <td>{{rowData.email}}</td>
-      <td>{{rowData.firstName}}</td>
+      <td>{{rowData.firstName + ' ' + rowData.lastName}}</td>
       <td>{{rowData.role == 0 ? 'Admin' : 'User'}} </td>
       <td >
-        <span [ngClass]="{ 'closed-status': rowData.disabled === true, 'progress-status': rowData.disabled === false}">
-          {{rowData.disabled === false ? 'Enabled' : 'disabled' | titlecase}}</span>
+        <span [ngClass]="{ 'closed-status': !rowData.isActive, 'progress-status': rowData.isActive}">
+          {{rowData.isActive ? 'Enabled' : 'disabled' | titlecase}}</span>
       </td>
       <td>{{rowData.createdAt | date}} </td>
       <td>

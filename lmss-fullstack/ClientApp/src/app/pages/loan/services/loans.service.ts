@@ -62,20 +62,20 @@ export class LoansService {
     //   httpParams = httpParams.set('loanDate', params.status)
     // }
 
-    // if (params.issueFromDateRange && params.issueToDateRange) {
-    //   httpParams = httpParams.set('filter[issueDateRange]', params.issueFromDateRange)
-    //     .append('filter[issueDateRange]', params.issueToDateRange)
-    // }
+    if (params.loanDateStart && params.loanDateEnd) {
+      httpParams = httpParams.set('loanDateStart', params.loanDateStart)
+        .append('loanDateEnd', params.loanDateEnd)
+    }
     //
-    // if (params.dueFromDateRange && params.dueToDateRange) {
-    //   httpParams = httpParams.set('filter[dueDateRange]', params.dueFromDateRange)
-    //     .append('filter[dueDateRange]', params.dueToDateRange)
-    // }
+    if (params.dueFromDateRange && params.dueToDateRange) {
+      httpParams = httpParams.set('dueDateStart', params.dueFromDateRange)
+        .append('dueDateEnd', params.dueToDateRange)
+    }
     //
-    // if (params.returnFromDateRange && params.returnToDateRange) {
-    //   httpParams = httpParams.set('filter[returnDateRange]', params.returnFromDateRange)
-    //     .append('filter[returnDateRange]', params.returnToDateRange)
-    // }
+    if (params.returnFromDateRange && params.returnToDateRange) {
+      httpParams = httpParams.set('returnDateStart', params.returnFromDateRange)
+        .append('returnDateEnd', params.returnToDateRange)
+    }
 
     if (params.orderBy) {
       httpParams = httpParams.set('orderBy', params.orderBy);

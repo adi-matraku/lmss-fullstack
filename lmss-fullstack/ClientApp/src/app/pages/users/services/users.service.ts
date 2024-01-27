@@ -5,8 +5,8 @@ import {UsersParams} from "./users.store";
 import {UserDisable} from "../model/user-disable.model";
 import {Observable} from "rxjs";
 import {UsersResponse} from "../model/user-response.model";
-import { UserEditData} from "../model/user-edit.model";
-import { NewUserData} from "../model/new-user.model";
+import {UserEditData} from "../model/user-edit.model";
+import {NewUser} from "../model/new-user.model";
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +39,11 @@ export class UsersService {
     }
 
     if (params.name) {
-      httpParams = httpParams.set('fullName', params.name)
+      httpParams = httpParams.set('firstName', params.name)
+    }
+
+    if (params.lastName) {
+      httpParams = httpParams.set('lastName', params.lastName)
     }
 
     if (params.role) {
@@ -47,12 +51,12 @@ export class UsersService {
     }
 
     if (params.status) {
-      httpParams = httpParams.set('status', params.status)
+      httpParams = httpParams.set('isActive', params.status)
     }
 
     if (params.createdAtFirst && params.createdAtSecond) {
-      httpParams = httpParams.set('filter[createdAtRange]', params.createdAtFirst)
-        .append('filter[createdAtRange]', params.createdAtSecond)
+      httpParams = httpParams.set('createdAtRange', params.createdAtFirst)
+        .append('createdAtRange', params.createdAtSecond)
     }
 
     // console.log(httpParams.toString());
@@ -71,8 +75,8 @@ export class UsersService {
     return this.http.put(`${environment.apiUrl}/api/users`, data)
   }
 
-  postUser(data: NewUserData): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/api/users`, data)
+  postUser(data: NewUser): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/api/users/create`, data)
   }
 
   removePermissions(user: UsersResponse[]): Observable<any> {

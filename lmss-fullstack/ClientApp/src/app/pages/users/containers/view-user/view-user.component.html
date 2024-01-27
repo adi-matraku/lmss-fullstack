@@ -6,8 +6,8 @@
 
     <ng-container *ngIf="user$ | async as user ; else loading">
     <button type="button" class="button" routerLink="edit" ><i class="pi pi-pencil"></i>Edit</button>
-    <button type="button" class="button" (click)="onStatus(user.disabled === false ? true : false)" >
-    <i class="pi pi-{{user.disabled === true ? 'check' : 'ban'}}"></i>{{ user.disabled === true ? 'Enable' : 'disable' | titlecase }} </button>
+    <button type="button" class="button" (click)="onStatus(!user.isActive)" >
+    <i class="pi pi-{{!user.isActive ? 'check' : 'ban'}}"></i>{{ !user.isActive ? 'Enable' : 'disable' | titlecase }} </button>
     <button type="button" class="audit-button" routerLink="/audit-logs"><i class="pi pi-history"></i>Audit Logs</button>
     <button type="button" class="audit-button" (click)="onActivity(user)"><i class="pi pi-eye"></i>Activity</button>
 
@@ -17,11 +17,11 @@
         <p *ngIf="user.firstName != undefined " >First Name: <span> {{user.firstName}} </span> </p>
         <p *ngIf="user.lastName != undefined " >Last Name: <span> {{user.lastName}} </span> </p>
         <p>Status:
-          <span [ngClass]="{ 'closed-status': user.disabled === true , 'progress-status': user.disabled === false}">
-            {{user.disabled === false ? 'Enabled' : 'disabled' | titlecase}}
+          <span [ngClass]="{ 'closed-status': !user.isActive , 'progress-status': user.isActive}">
+            {{user.isActive ? 'Enabled' : 'disabled' | titlecase}}
           </span>
         </p>
-        <p>Roles: <span> {{user.roles.join(', ') | titlecase }} </span> </p>
+        <p>Roles: <span> {{user.role === 0 ? 'Admin' : 'User' }} </span> </p>
         <p>Created at: <span> {{user.createdAt | date:'medium'}} </span> </p>
         <p>Updated at: <span> {{user.updatedAt | date:'medium' }} </span> </p>
 

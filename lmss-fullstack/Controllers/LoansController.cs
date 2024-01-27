@@ -78,7 +78,7 @@ public class LoansController: BaseApiController
         var loan = _mapper.Map<Loan>(loanDto);
 
         // Set additional properties not covered by the DTO
-        loan.Status = "inProgress";
+        loan.Status = loan.DueDate < DateTime.Now ? "overdue" : "inProgress";
         loan.CreatedAt = DateTime.Now;
         loan.UpdatedAt = DateTime.Now;
         loan.UpdatedBy = loanDto.UserID; // Assuming UserID is available in loanDto

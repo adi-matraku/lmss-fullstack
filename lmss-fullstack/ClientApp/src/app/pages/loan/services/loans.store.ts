@@ -11,8 +11,8 @@ export interface LoansParams {
   userID: string| null;
   bookID: string | null;
   status: string | null;
-  issueFromDateRange: string | null;
-  issueToDateRange: string | null;
+  loanDateStart: string | null;
+  loanDateEnd: string | null;
   dueFromDateRange: string | null;
   dueToDateRange: string | null;
   returnFromDateRange: string | null;
@@ -37,8 +37,8 @@ export const initialState: LoansState = {
     userID: null,
     bookID: null,
     status: null,
-    issueFromDateRange: null,
-    issueToDateRange: null,
+    loanDateStart: null,
+    loanDateEnd: null,
     dueFromDateRange: null,
     dueToDateRange: null,
     returnFromDateRange: null,

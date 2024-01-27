@@ -37,7 +37,7 @@ public class AuthController: BaseApiController
             Username = registerDto.Username,
             Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
             PasswordSalt = hmac.Key,
-            Role = registerDto.Role,
+            Role = Role.User,
             Email = registerDto.Email,
             FirstName = registerDto.FirstName,
             LastName = registerDto.LastName,

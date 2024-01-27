@@ -56,6 +56,7 @@ export class UsersComponent implements OnInit {
       id: event.id,
       email: event.email,
       name: event.name,
+      lastName: event.lastName,
       status: event.status,
       createdAtFirst: event.createdAtFirst,
       createdAtSecond: event.createdAtSecond,

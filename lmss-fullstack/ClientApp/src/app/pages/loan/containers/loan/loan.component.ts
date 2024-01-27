@@ -36,11 +36,12 @@ export class LoanComponent {
   }
 
   searchParams(event: any) {
+    console.log(event);
     this.store.load({
       bookID: event.book,
       userID: event.member,
-      issueFromDateRange: event.issueFromDateRange,
-      issueToDateRange: event.issueToDateRange,
+      loanDateStart: event.issueFromDateRange,
+      loanDateEnd: event.issueToDateRange,
       dueFromDateRange: event.dueFromDateRange,
       dueToDateRange: event.dueToDateRange,
       returnFromDateRange: event.returnFromDateRange,

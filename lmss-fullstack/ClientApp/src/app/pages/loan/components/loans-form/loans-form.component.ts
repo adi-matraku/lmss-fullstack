@@ -27,11 +27,12 @@ export class LoansFormComponent implements OnInit {
   @Output() searchQuery = new EventEmitter<{}>();
 
   @Input() set formValue(params: LoansParams) {
+    console.log(params);
     this.form.patchValue({
       book: params.bookID,
       member: params.userID,
-      issueFromDateRange: params.issueFromDateRange,
-      issueToDateRange: params.issueToDateRange,
+      issueFromDateRange: params.loanDateStart,
+      issueToDateRange: params.loanDateEnd,
       dueFromDateRange: params.dueFromDateRange,
       dueToDateRange: params.dueToDateRange,
       returnFromDateRange: params.returnFromDateRange,
@@ -99,11 +100,12 @@ export class LoansFormComponent implements OnInit {
   onSearch() {
     // console.log(this.form.value);
     // console.log(this.form.value.dueDate);
-    // console.log(this.form.value.issueDate);
+    console.log(this.form.value);
 
     if (this.form.value.issueDate) {
       this.issueFromDate = formatDates(this.form.value.issueDate[0])
       this.issueToDate = formatDates(this.form.value.issueDate[1])
+      console.log(this.issueFromDate, 'issue date');
     }
 
     if (this.form.value.dueDate) {
@@ -128,7 +130,7 @@ export class LoansFormComponent implements OnInit {
       status: this.form.value.status,
     }
 
-    console.log(object);
+    console.warn(object);
     this.searchQuery.emit(object)
   }
 
@@ -138,19 +140,29 @@ export class LoansFormComponent implements OnInit {
       member: null,
       book: null,
       status: null,
-      issueFromDateRange: null,
-      issueToDateRange: null,
+      loanDateStart: null,
+      loanDateEnd: null,
       dueFromDateRange: null,
       dueToDateRange: null,
       returnFromDateRange: null,
       returnToDateRange: null,
     })
+    this.resetDateRanges();
 
     this.form.patchValue({
       issueDate: null,
       dueDate: null,
       returnDate: null,
     })
+  }
+
+  resetDateRanges() {
+    this.issueFromDate = null;
+    this.issueToDate = null;
+    this.dueFromDate = null;
+    this.dueToDate = null;
+    this.returnFromDate = null;
+    this.returnToDate = null;
   }
 
 }

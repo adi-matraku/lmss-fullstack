@@ -1,11 +1,8 @@
 export interface NewUser {
-  emails: string[];
+  emails: string;
   firstName: string;
   lastName: string;
+  username: string;
   phoneNumber: string;
-  roles: string[];
-}
-
-export interface NewUserData {
-  data: NewUser;
+  role: number;
 }

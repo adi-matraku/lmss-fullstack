@@ -62,4 +62,20 @@
   .p-checkbox .p-checkbox-box.p-highlight {
     padding-left: 1rem;
   }
+
+  .p-dropdown {
+    width: 50%;
+  }
+
+  .p-dropdown-panel, .p-dropdown-items, .p-dropdown-item {
+    font-size: 1.4rem;
+    background-color: white;
+    //border: 1px solid rgb(0,0,0, .1);
+  }
+
+  .p-dropdown-label {
+    font-size: 1.4rem;
+    padding: 1.4rem 0 0 1.4rem;
+    //padding-left: 1.4rem;
+  }
 }

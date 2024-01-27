@@ -9,16 +9,16 @@
       <form [formGroup]="form">
 
         <div class="form-group">
-          <label class="form-label">Emails</label>
-          <p-chips inputId="emails" formControlName="emails" [max]=2 [allowDuplicate]="false" ></p-chips>
+          <label class="form-label">Email</label>
+          <input type="text" id="email" class="form-input" formControlName="email" pInputText>
           <p class="error-message"
-             *ngIf="!form.get('emails')?.valid && form.get('emails')?.touched"
+             *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
           >
             Please input a valid email.
           </p>
         </div>
 
-        <div class="form-group" *ngIf="multipleEmailsDisplay">
+        <div class="form-group">
           <label for="firstName" class="form-label">First Name</label>
           <input type="text" id="firstName" class="form-input" formControlName="firstName" pInputText>
           <p class="error-message"
@@ -28,7 +28,7 @@
           </p>
         </div>
 
-        <div class="form-group" *ngIf="multipleEmailsDisplay">
+        <div class="form-group">
           <label for="lastName" class="form-label">Last Name</label>
           <input type="text" id="lastName" class="form-input" formControlName="lastName" pInputText>
           <p class="error-message"
@@ -38,7 +38,17 @@
           </p>
         </div>
 
-        <div class="form-group" *ngIf="multipleEmailsDisplay">
+        <div class="form-group">
+          <label for="lastName" class="form-label">Username</label>
+          <input type="text" id="username" class="form-input" formControlName="username" pInputText>
+          <p class="error-message"
+             *ngIf="!form.get('username')?.valid && form.get('username')?.touched"
+          >
+            Please input a username.
+          </p>
+        </div>
+
+        <div class="form-group">
           <label class="form-label">Phone Number</label>
           <p-inputMask mask="(999) 999-9999" formControlName="phoneNumber" placeholder="(999) 999-9999"></p-inputMask>
           <p class="error-message"
@@ -49,8 +59,10 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Roles</label>
-          <p-multiSelect [options]="roles" optionValue="value" formControlName="roles" optionLabel="label"></p-multiSelect>
+          <label class="form-label">Role</label>
+          <p-dropdown id="status" [options]="roles" optionLabel="label" formControlName="role" optionValue="value">
+          </p-dropdown>
+<!--          <p-multiSelect [options]="roles" optionValue="value" formControlName="roles" optionLabel="label"></p-multiSelect>-->
           <p class="error-message"
              *ngIf="!form.get('roles')?.valid && form.get('roles')?.touched"
           >

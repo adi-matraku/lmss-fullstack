@@ -5,6 +5,7 @@ import {UsersService} from "../../services/users.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {UserDisable} from "../../model/user-disable.model";
+import {User} from "../../../auth/models/user.model";
 // import {AuditStore} from "../../../audit-logs/services/audit.store";
 
 @Component({
@@ -18,7 +19,7 @@ export class ViewUserComponent implements OnInit {
 
   userId: string = ''
   userEmail: string | undefined = ''
-  user$!: Observable<UsersResponse | null> ;
+  user$!: Observable<User | null> ;
 
   constructor(private usersService: UsersService, private route: ActivatedRoute, private messageService: MessageService,
               private confirmationService: ConfirmationService, private router: Router) { }
@@ -50,7 +51,7 @@ export class ViewUserComponent implements OnInit {
     })
   }
 
-  getUser(): Observable<UsersResponse | null> {
+  getUser(): Observable<User | null> {
     return this.route.params.pipe(
       pluck('id'),
       tap((id: string) => this.userId = id),
@@ -67,7 +68,7 @@ export class ViewUserComponent implements OnInit {
     );
   }
 
-  onActivity(user: UsersResponse) {
+  onActivity(user: User) {
 
     this.router.navigate(
       ['/audit-logs'],

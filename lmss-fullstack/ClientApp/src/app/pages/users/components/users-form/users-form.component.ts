@@ -15,14 +15,14 @@ export class UsersFormComponent implements OnInit {
 
   status = [
     { label: '--', value: null },
-    { label: 'Enabled', value: 'enabled' },
-    { label: 'Disabled', value: 'disabled' }
+    { label: 'Enabled', value: 'true' },
+    { label: 'Disabled', value: 'false' }
   ];
 
   role = [
     { label: '--', value: null },
-    { label: 'Librarian', value: 'librarian' },
-    { label: 'Member', value: 'member' }
+    { label: 'Admin', value: '0' },
+    { label: 'User', value: '1' }
   ];
 
   @Input() set formValue(params: UsersParams) {
@@ -42,6 +42,7 @@ export class UsersFormComponent implements OnInit {
     createdAt: null,
     email: null,
     name: null,
+    lastName: null,
     status: null,
     role: null,
   });
@@ -64,6 +65,7 @@ export class UsersFormComponent implements OnInit {
       id: this.form.value.id,
       email: this.form.value.email,
       name: this.form.value.name,
+      lastName: this.form.value.lastName,
       status: this.form.value.status,
       createdAtFirst: this.createdAtFirst,
       createdAtSecond: this.createdAtSecond,
@@ -80,12 +82,14 @@ export class UsersFormComponent implements OnInit {
       id: null,
       email: null,
       name: null,
+      lastName: null,
       status: null,
       roles: null
     })
 
     this.form.patchValue({
       createdAt: null,
+      lastName: null,
     })
   }
 
