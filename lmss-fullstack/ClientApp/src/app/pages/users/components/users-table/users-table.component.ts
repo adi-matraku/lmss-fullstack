@@ -29,9 +29,9 @@ export class UsersTableComponent implements OnInit {
 
   @Output() paginationChanged = new EventEmitter<PaginatorState>();
   @Output() sortChanged = new EventEmitter<string>();
-  @Output() userSelection = new EventEmitter<UsersResponse[]>();
+  @Output() userSelection = new EventEmitter<User[]>();
 
-  @Input() selectedUsers: UsersResponse[] = [];
+  @Input() selectedUsers: User[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
@@ -39,7 +39,7 @@ export class UsersTableComponent implements OnInit {
     // console.log(this.books);
   }
 
-  selectionChange(event: UsersResponse[]) {
+  selectionChange(event: User[]) {
     console.log(event)
     this.userSelection.emit(event)
   }

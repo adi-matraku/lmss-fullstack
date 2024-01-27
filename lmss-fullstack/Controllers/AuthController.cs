@@ -65,6 +65,11 @@ public class AuthController: BaseApiController
 
         if (user == null) return Unauthorized("An account with this email does not exist");
         
+        if (!user.IsActive) 
+        {
+            return Unauthorized("Account is inactive");
+        }
+        
         using var hmac = new HMACSHA512(user.PasswordSalt);
 
         var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));

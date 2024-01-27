@@ -71,14 +71,14 @@ export class SignInComponent {
             this.authStore.setToken(null);
             localStorage.removeItem('token');
             // this.isLoading = false;
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
           }
         })
       },
       error: err => {
         console.log(err);
         this.isLoading = false;
-        this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'Cannot Authenticate. An error occured.'})
+        this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
       }
 
     })

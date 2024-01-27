@@ -168,5 +168,29 @@ public class UsersController : BaseApiController
 
         return Ok(users);
     }
+    
+    [HttpPut("update-status")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateUserStatus([FromBody] UserStatusUpdateDto updateDto)
+    {
+        var usersToUpdate = await _context.Users
+            .Where(u => updateDto.UserIds.Contains(u.Id))
+            .ToListAsync();
+
+        if (usersToUpdate.Count == 0)
+        {
+            return NotFound("No users found with the provided IDs.");
+        }
+
+        foreach (var user in usersToUpdate)
+        {
+            user.IsActive = !updateDto.Disabled; // Set IsActive based on the negation of Disabled
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = "User statuses updated successfully." });
+    }
+
 
 }

@@ -8,6 +8,7 @@ import {UsersService} from "../../services/users.service";
 import {exportExcel} from "../../../../shared/export-excel/export-excel.function";
 import {UsersResponse} from "../../model/user-response.model";
 import {PaginatorState} from "primeng/paginator/paginator.interface";
+import {User} from "../../../auth/models/user.model";
 
 @Component({
   selector: 'app-users',
@@ -18,7 +19,7 @@ export class UsersComponent implements OnInit {
 
   idArray: string[] = [];
 
-  usersSelection: UsersResponse[] = [];
+  usersSelection: User[] = [];
 
   @ViewChild(UsersTableComponent) table!: UsersTableComponent;
 
@@ -34,7 +35,7 @@ export class UsersComponent implements OnInit {
     exportExcel(this.table.users)
   }
 
-  selectedUsers(event: UsersResponse[]) {
+  selectedUsers(event: User[]) {
     console.log(event);
     this.usersSelection = event;
     console.log(this.usersSelection);
@@ -72,7 +73,7 @@ export class UsersComponent implements OnInit {
       this.idArray.push(user.id)
 
       const userData: UserDisable = {
-        ids: this.idArray,
+        userIds: this.idArray,
         disabled: status,
       }
 

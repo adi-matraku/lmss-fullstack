@@ -31,7 +31,7 @@ export class ViewUserComponent implements OnInit {
   onStatus(status: boolean) {
 
       const userData: UserDisable = {
-        ids: [this.userId],
+        userIds: [this.userId],
         disabled: status,
       }
 

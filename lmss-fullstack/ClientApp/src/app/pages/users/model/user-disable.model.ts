@@ -1,4 +1,4 @@
 export interface UserDisable {
-  ids: string[];
+  userIds: string[];
   disabled: boolean;
 }

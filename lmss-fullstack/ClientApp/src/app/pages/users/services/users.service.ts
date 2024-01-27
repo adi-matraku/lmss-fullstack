@@ -64,7 +64,7 @@ export class UsersService {
   }
 
   userStatusChange(data: UserDisable) {
-    return this.http.put(`${environment.apiUrl}/api/users/status`, data)
+    return this.http.put(`${environment.apiUrl}/api/users/update-status`, data)
   }
 
   getUserById(id: string): Observable<any> {
@@ -79,17 +79,5 @@ export class UsersService {
     return this.http.post(`${environment.apiUrl}/api/users/create`, data)
   }
 
-  removePermissions(user: UsersResponse[]): Observable<any> {
-    return this.http.delete(`${environment.apiUrl}/api/users`, {params: this.userPermissionsParams(user)})
-  }
-
-  userPermissionsParams(users: UsersResponse[]): HttpParams {
-    let httpParams = new HttpParams();
-    httpParams = httpParams.set('all', true)
-    users.forEach(user => {
-      httpParams = httpParams.append('emails[]', user.email);
-    })
-    return httpParams;
-  }
 
 }
