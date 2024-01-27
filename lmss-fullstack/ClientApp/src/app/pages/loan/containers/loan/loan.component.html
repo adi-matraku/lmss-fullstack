@@ -4,7 +4,6 @@
 
     <h1>Loans</h1>
     <button *appRole="['Admin', 0]" type="button" routerLink="new" class="button"><i class="pi pi-plus"></i>New</button>
-    <button *appRole="['Admin', 0]" type="button" routerLink="import" class="button"><i class="pi pi-upload"></i>Import</button>
     <button *appRole="['Admin', 0]" type="button" class="delete-button" [class.p-disabled]="loansSelection.length === 0" (click)="onDeleteButton()" >
       <i class="pi pi-trash"></i>Delete</button>
     <button *appRole="['Admin', 0]" type="button" routerLink="/audit-logs" class="audit-button" ><i class="pi pi-history"></i>Audit Logs</button>
