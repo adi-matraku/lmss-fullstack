@@ -42,10 +42,9 @@ public class BookService
             query = query.Where(u => u.ISBN.Contains(bookParams.ISBN));
         }
 
-
         if (bookParams.AvailabilityStatus.HasValue)
         {
-            query = query.Where(u => u.IsActive == bookParams.AvailabilityStatus.Value);
+            query = query.Where(u => u.AvailabilityStatus == bookParams.AvailabilityStatus.Value);
         }
         
         // return await PagedList<Book>.CreateAsync(query, bookParams.PageNumber, bookParams.PageSize);

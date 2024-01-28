@@ -1,30 +1,74 @@
 <form [formGroup]="form" class="credentials-form">
   <h2>Welcome to the Library</h2>
   <div class="form-group">
+    <label class="credentials-form__label" for="firstName">First Name</label>
+    <input type="text" id="firstName" class="form-input" formControlName="firstName" pInputText>
+    <p class="error-message-validation"
+       *ngIf="!form.get('firstName')?.valid && form.get('firstName')?.touched"
+    >
+      Please input a valid first name.
+    </p>
+<!--    <p class="error-message"-->
+<!--       *ngIf="submitted && !form.get('firstName')?.valid"-->
+<!--    >-->
+<!--      Please input a valid first name.-->
+<!--    </p>-->
+  </div>
+  <div class="form-group">
+    <label class="credentials-form__label" for="lastName">Last Name</label>
+    <input type="text" id="lastName" class="form-input" formControlName="lastName" pInputText>
+    <p class="error-message-validation"
+       *ngIf="!form.get('lastName')?.valid && form.get('lastName')?.touched"
+    >
+      Please input a valid last name.
+    </p>
+<!--    <p class="error-message"-->
+<!--       *ngIf="submitted && !form.get('lastName')?.valid"-->
+<!--    >-->
+<!--      Please input a valid last name.-->
+<!--    </p>-->
+  </div>
+  <div class="form-group">
+    <label class="credentials-form__label" for="username">Username</label>
+    <input type="text" id="username" class="form-input" formControlName="username" pInputText>
+    <p class="error-message-validation"
+       *ngIf="!form.get('username')?.valid && form.get('username')?.touched"
+    >
+      Please input a valid username.
+    </p>
+<!--    <p class="error-message"-->
+<!--       *ngIf="submitted && !form.get('email')?.valid"-->
+<!--    >-->
+<!--      Please input a valid username.-->
+<!--    </p>-->
+  </div>
+  <div class="form-group">
     <label class="credentials-form__label" for="email">Email</label>
     <input type="email" id="email" class="form-input" formControlName="email" pInputText>
-    <p class="error-message"
-       *ngIf="!submitted && !form.get('email')?.valid && form.get('email')?.touched"
+    <p class="error-message-validation"
+       *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
     >
       Please input a valid email.
     </p>
-    <p class="error-message"
-       *ngIf="submitted && !form.get('email')?.valid"
-    >
-      Please input a valid email.
-    </p>
+<!--    <p class="error-message"-->
+<!--       *ngIf="submitted && !form.get('email')?.valid"-->
+<!--    >-->
+<!--      Please input a valid email.-->
+<!--    </p>-->
   </div>
   <div class="form-group">
     <label class="credentials-form__label" for="password">Password</label>
-    <input type="password" id="password" class="form-input" formControlName="password" pPassword />
-    <p class="error-message" *ngIf="!submitted && !form.get('password')?.valid && form.get('password')?.touched ">
-      Please input a valid password with atleast 6 characters, 1 uppercase, 1 lowercase, 1 numeric.
+    <input type="password" id="password" class="form-input" formControlName="password" />
+<!--    <p class="error-message" *ngIf="!submitted && !form.get('password')?.valid && form.get('password')?.touched ">-->
+<!--      Please input a valid password with atleast 6 characters, 1 uppercase, 1 lowercase, 1 numeric.-->
+<!--    </p>-->
+    <p class="error-message-validation" *ngIf="!form.get('password')?.valid && form.get('password')?.touched">
+      Please input a valid password of atleast 6 characters.
     </p>
-    <p class="error-message" *ngIf="submitted && !form.get('password')?.valid ">
-      Please input a valid password with atleast 6 characters, 1 uppercase, 1 lowercase, 1 numeric.
-    </p>
+  </div>
 
-    <button type="submit" class="button" (click)="onSignup()" [class.p-disabled]="!form.valid || isLoading">
+  <div>
+    <button type="submit" class="sign-up-button" (click)="onSignup()" [class.p-disabled]="!form.valid || isLoading">
       <span class="center-alignment" style="justify-content: center;">
          Sign Up
          <i class="pi pi-spin pi-spinner" style="font-size: 1.4rem; margin-left: 1rem" *ngIf="isLoading"></i>

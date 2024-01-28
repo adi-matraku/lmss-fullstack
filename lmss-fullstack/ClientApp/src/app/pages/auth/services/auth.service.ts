@@ -4,6 +4,7 @@ import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
 import {AuthStore} from "../../../core/services/auth.store";
 import {Router} from "@angular/router";
+import {SignUpModel} from "../models/sign-up-model";
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +23,8 @@ export class AuthService {
     return this.http.get(`${environment.apiUrl}/api/auth/me`);
   }
 
-  signup(email: string, password: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/api/auth/sign-up`, {
-      email: email,
-      password: password
-    }, {responseType: 'text'})
+  signup(data: SignUpModel): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/api/auth/register`, data)
   }
 
   edit(credentials: {  }) {

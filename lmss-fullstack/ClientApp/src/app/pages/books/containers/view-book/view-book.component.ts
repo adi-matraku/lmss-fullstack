@@ -19,7 +19,7 @@ export class ViewBookComponent implements OnInit {
       id
         ? this.booksService.getBookById(id).pipe(
           catchError((err) => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'Book not found'})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             return of(null);
           })
         )
@@ -50,7 +50,7 @@ export class ViewBookComponent implements OnInit {
               this.router.navigate(['../book'])
             },
             error: err => {
-              this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+              this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
               console.log(err);
             }
           })

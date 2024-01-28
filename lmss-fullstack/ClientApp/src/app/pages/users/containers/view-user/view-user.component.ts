@@ -29,8 +29,7 @@ export class ViewUserComponent implements OnInit {
   }
 
   onStatus(status: boolean) {
-
-      const userData: UserDisable = {
+    const userData: UserDisable = {
         userIds: [this.userId],
         disabled: status,
       }
@@ -43,7 +42,7 @@ export class ViewUserComponent implements OnInit {
             this.user$ = this.getUser();
           },
           error: err => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             console.log(err);
           }
         })
@@ -59,7 +58,7 @@ export class ViewUserComponent implements OnInit {
         id
           ? this.usersService.getUserById(id).pipe(
             catchError((err) => {
-              this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'User not found'})
+              this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
               return of(null);
             })
           )

@@ -66,7 +66,7 @@ export class EditLoanComponent implements OnInit, OnDestroy {
 
           }), catchError((err) => {
             console.error(err);
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'Book not found'})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             this.router.navigateByUrl('/loan');
             return of(null);
           })
@@ -116,7 +116,7 @@ export class EditLoanComponent implements OnInit, OnDestroy {
           },
           error: (err) => {
             this.isLoading = false
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             console.log(err);
           }
         }

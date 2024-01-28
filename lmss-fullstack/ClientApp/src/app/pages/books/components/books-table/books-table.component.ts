@@ -74,7 +74,7 @@ export class BooksTableComponent implements OnInit {
             this.store.load({})
           },
           error: err => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             console.log(err);
           }
         })

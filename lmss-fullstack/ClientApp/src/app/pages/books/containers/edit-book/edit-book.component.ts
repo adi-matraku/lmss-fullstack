@@ -65,8 +65,8 @@ export class EditBookComponent implements OnDestroy {
             })).subscribe();
             // this.sameObject = JSON.stringify(this.form.value) === JSON.stringify(this.resetObject);
           }), catchError((err) => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'Book not found'})
-            this.router.navigateByUrl('/book');
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
+            this.router.navigateByUrl('/book').then();
             return of(null);
           })
         )

@@ -22,11 +22,12 @@ h2 {
 }
 
 .form-group {
+  position: relative;
   display: flex;
   flex-direction: column;
 
   &:not(:last-child) {
-    margin-bottom: 2rem;
+    padding-bottom: 2.2rem;
   }
 }
 
@@ -45,7 +46,7 @@ h2 {
   color: var(--buttons-color);
 }
 
-.button {
+.sign-up-button {
   font-size: 1.4rem;
   color: #fff;
   font-weight: 500;
@@ -53,7 +54,7 @@ h2 {
   padding: 1.5rem;
   border-radius: 7px;
   background-color: var(--primary-color);
-  margin-top: 2rem;
+  margin-top: 1rem;
   border: none;
   transition: all .2s;
 
@@ -81,4 +82,10 @@ h2 {
     border-radius: 7px;
   }
 
+}
+
+.error-message-validation {
+  position: absolute;
+  bottom: -5px;
+  font-size: 1.1rem;
 }

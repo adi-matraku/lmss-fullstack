@@ -5,6 +5,7 @@ import {AuthService} from "../../../auth/services/auth.service";
 import {AuthStore} from "../../../../core/services/auth.store";
 import {MessageService} from "primeng/api";
 import {take} from "rxjs";
+import {UsersService} from "../../../users/services/users.service";
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,11 +17,13 @@ export class EditProfileComponent implements OnInit {
   fileName = '';
   file!: FormData;
   privateUrl = null;
+  userId!: string;
 
   constructor(private fb: UntypedFormBuilder,
               private router: Router,
               private authService: AuthService,
               private messageService: MessageService,
+              private userService: UsersService,
               private authStore: AuthStore) {
   }
 
@@ -47,6 +50,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.me().subscribe((user) => {
       console.log(user);
+      this.userId = user.id;
       this.form.patchValue({
         firstName: user?.firstName,
         lastName: user?.lastName,
@@ -107,41 +111,41 @@ export class EditProfileComponent implements OnInit {
 
   onSave() {
     // console.log(this.file)
-    console.log(this.form.value);
-
-    const newCredentials = this.form.value;
-
-    const credentials = {
-      firstName: newCredentials.firstName,
-      lastName: newCredentials.lastName,
-      phoneNumber: newCredentials.phoneNumber,
-      avatars: {...this.file, privateUrl: this.privateUrl}
+    // console.log(this.form.value);
+    //
+    // const newCredentials = this.form.value;
+    //
+    // const credentials = {
+    //   firstName: newCredentials.firstName,
+    //   lastName: newCredentials.lastName,
+    //   phoneNumber: newCredentials.phoneNumber,
+    //   avatars: {...this.file, privateUrl: this.privateUrl}
+    // }
+    const data = {
+      id: this.userId,
+      ...this.form.value
     }
 
-    this.authService.edit(credentials).subscribe({
-      next: (res) => {
+    this.userService.editUser(data).subscribe({
+      next: () => {
         this.authService.me().pipe(take(1)).subscribe((user) => {
-          user.firstName = newCredentials.firstName;
-          user.lastName = newCredentials.lastName;
-          user.phoneNumber = newCredentials.phoneNumber;
+          user.firstName = this.form.value.firstName;
+          user.lastName = this.form.value.lastName;
+          user.phoneNumber = this.form.value.phoneNumber;
 
           this.authStore.setUser(user);
-          console.log(user);
-          console.log(this.authStore.state);
-          console.log(this.authStore.state.user?.firstName);
-
           this.messageService.add({key: 'toast', detail: 'Success', severity: 'success', summary: 'Edited succesfully'})
-          this.router.navigateByUrl('/loan');
+          this.router.navigateByUrl('/loan').then();
         });
       },
       error: (err) => {
-        this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+        this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
         console.log(err);
       }
     })
 
 
-    console.log(credentials)
+    // console.log(credentials)
   }
 
 }

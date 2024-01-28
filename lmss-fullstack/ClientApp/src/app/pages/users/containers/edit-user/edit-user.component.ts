@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {catchError, Observable, of, pluck, switchMap, tap} from "rxjs";
-import {LoanBookResponse} from "../../../loan/model/loan-book-response.model";
 import {UsersResponse} from "../../model/user-response.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UsersService} from "../../services/users.service";
 import {UntypedFormBuilder, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import {UsersStore} from "../../services/users.store";
-import {UserEdit} from "../../../edit-profile/models/user-edit.model";
-import {UserEditData} from "../../model/user-edit.model";
 
 @Component({
   selector: 'app-edit-user',
@@ -20,17 +17,18 @@ export class EditUserComponent implements OnInit {
   isLoading: boolean = false;
 
   roles = [
-    {label: 'Member', value: 'member'},
-    {label: 'Librarian', value: 'librarian'},
+    {label: 'Admin', value: 0},
+    {label: 'User', value: 1},
   ];
 
   form = this.fb.group({
     id: [''],
-    email: [''],
-    firstName: [''],
-    lastName: [''],
+    email: ['', Validators.email],
+    username: ['', Validators.minLength(3)],
+    firstName: ['', Validators.minLength(3)],
+    lastName: ['', Validators.minLength(3)],
     phoneNumber: [''],
-    roles: [''],
+    role: [''],
   })
 
   book$: Observable<UsersResponse | null> = this.route.params.pipe(
@@ -43,12 +41,14 @@ export class EditUserComponent implements OnInit {
               email: response.email,
               firstName: response.firstName,
               lastName: response.lastName,
+              username: response.username,
               phoneNumber: response.phoneNumber,
-              roles: response.roles,
+              role: response.role,
             });
 
           }), catchError((err) => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'User not found'})
+          console.log(err);
+          this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             this.router.navigateByUrl('/iam');
             return of(null);
           })
@@ -61,7 +61,8 @@ export class EditUserComponent implements OnInit {
               private fb: UntypedFormBuilder,
               private store: UsersStore,
               private usersService: UsersService,
-              private messageService: MessageService) { }
+              private messageService: MessageService) {
+  }
 
   ngOnInit(): void {
 
@@ -72,26 +73,20 @@ export class EditUserComponent implements OnInit {
 
     this.isLoading = true;
 
-    const user: UserEditData = {
-      data: this.form.value,
-    }
-
-    console.log(user);
-
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.usersService.editUser(user).subscribe({
+      this.usersService.editUser(this.form.value).subscribe({
           next: (res) => {
             console.log(res);
             this.isLoading = false;
             this.messageService.add({key: 'toast', detail: 'Success', severity: 'success', summary: 'Edited succesfully'})
             this.store.load({})
-            this.router.navigateByUrl('/iam');
+            this.router.navigateByUrl('/iam').then();
           },
           error: (err) => {
             this.isLoading = false;
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             console.log(err);
           }
         }

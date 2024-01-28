@@ -19,7 +19,7 @@ export class ViewLoanComponent implements OnInit {
       id
         ? this.loansService.getLoanBookById(id).pipe(
           catchError((err) => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: 'Book not found'})
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
             return of(null);
           })
         )
@@ -49,7 +49,7 @@ export class ViewLoanComponent implements OnInit {
               this.router.navigate(['../loan'])
             },
             error: err => {
-              this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.message})
+              this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
               console.log(err);
             }
           })

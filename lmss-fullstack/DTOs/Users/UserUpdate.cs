@@ -18,8 +18,6 @@ public class UserUpdate
     [MinLength(3, ErrorMessage = "LastName must be at least 3 characters.")]
     [MaxLength(15, ErrorMessage = "LastName cannot exceed 15 characters.")]
     public string? LastName { get; set; }
-    
-    [RegularExpression(@"^\+[0-9]{1,3}[0-9]{6,14}$", ErrorMessage = "Invalid phone number format.")]
     public string? PhoneNumber { get; set; }
     
     [EnumDataType(typeof(Role), ErrorMessage = "Invalid role.")]

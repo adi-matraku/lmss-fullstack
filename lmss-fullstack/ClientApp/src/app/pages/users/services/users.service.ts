@@ -5,7 +5,7 @@ import {UsersParams} from "./users.store";
 import {UserDisable} from "../model/user-disable.model";
 import {Observable} from "rxjs";
 import {UsersResponse} from "../model/user-response.model";
-import {UserEditData} from "../model/user-edit.model";
+import {UserEdit} from "../model/user-edit.model";
 import {NewUser} from "../model/new-user.model";
 
 @Injectable({
@@ -71,13 +71,12 @@ export class UsersService {
     return this.http.get<UsersResponse>(`${environment.apiUrl}/api/users/${id}`);
   }
 
-  editUser(data: UserEditData): Observable<any> {
-    return this.http.put(`${environment.apiUrl}/api/users`, data)
+  editUser(data: UserEdit): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}/api/users`, data)
   }
 
   postUser(data: NewUser): Observable<any> {
     return this.http.post(`${environment.apiUrl}/api/users/create`, data)
   }
-
 
 }
