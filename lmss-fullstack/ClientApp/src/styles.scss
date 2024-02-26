@@ -251,6 +251,16 @@ input.ng-touched.ng-invalid {
   margin: 0 .7rem 0 0;
 }
 
+.p-password {
+  width: 100%;
+
+  input {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.4rem;
+  }
+}
+
 a {
   text-decoration: none !important;
 }

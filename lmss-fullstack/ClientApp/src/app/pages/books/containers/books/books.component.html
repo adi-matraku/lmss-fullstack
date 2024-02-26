@@ -6,7 +6,7 @@
     <button *appRole="['Admin', 0]" type="button" routerLink="new" class="button"><i class="pi pi-plus"></i>New</button>
     <button *appRole="['Admin', 0]" type="button" class="delete-button" [class.p-disabled]="booksSelection.length === 0" (click)="onDeleteButton()">
       <i class="pi pi-trash"></i>Delete</button>
-    <button *appRole="['Admin', 0]" type="button" routerLink="/audit-logs" class="audit-button" ><i class="pi pi-history"></i>Audit Logs</button>
+<!--    <button *appRole="['Admin', 0]" type="button" routerLink="/audit-logs" class="audit-button" ><i class="pi pi-history"></i>Audit Logs</button>-->
     <button type="button" class="audit-button" (click)="exportFile()" ><i class="pi pi-file-excel"></i>Export to Excel</button>
     <ng-container *ngIf="store.state$ | async as state">
     <div class="book-container">

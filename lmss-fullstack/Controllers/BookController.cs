@@ -43,7 +43,7 @@ public class BookController: BaseApiController
 
         if (book == null)
         {
-            return NotFound();
+            return NotFound("Book Not Found");
         }
 
         return book;

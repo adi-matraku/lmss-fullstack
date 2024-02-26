@@ -32,7 +32,8 @@ export class BooksComponent implements OnInit {
   }
 
   exportFile() {
-    exportExcel(this.table.books)
+    console.log(this.table.books, 'table books!');
+    exportExcel(this.table.books, 'Books')
   }
 
   bookChanged(event: BookModel[]) {

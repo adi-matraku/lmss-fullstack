@@ -25,7 +25,8 @@ public class AuthController: BaseApiController
     }
 
     [HttpPost("register")] // /api/auth/register
-    public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+    public async Task<ActionResult
+        <UserDto>> Register(RegisterDto registerDto)
     {
         if (await UserExists(registerDto.Email)) return BadRequest("Email is taken");
         

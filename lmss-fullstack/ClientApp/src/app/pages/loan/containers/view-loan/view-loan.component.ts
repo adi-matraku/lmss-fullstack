@@ -20,6 +20,7 @@ export class ViewLoanComponent implements OnInit {
         ? this.loansService.getLoanBookById(id).pipe(
           catchError((err) => {
             this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
+            this.router.navigateByUrl('/loan').then();
             return of(null);
           })
         )

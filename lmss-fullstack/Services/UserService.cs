@@ -60,12 +60,12 @@ public class UserService
         
         var users = await PagedList<User>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
         
-        var totalUsers = await query.CountAsync();
+        // var totalUsers = await query.CountAsync();
 
         return new UsersResponse
         {
             Users = users,
-            Total = totalUsers
+            Total = users.TotalCount
         };
     }
     

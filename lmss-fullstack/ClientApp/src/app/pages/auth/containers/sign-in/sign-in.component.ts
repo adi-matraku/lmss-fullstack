@@ -25,7 +25,7 @@ export class SignInComponent {
   }
 
   form = this.fb.group({
-    email: ['admin@example.com', {
+    email: ['tester@example.com', {
       validators: [
         Validators.required,
         Validators.minLength(6)]
@@ -61,7 +61,7 @@ export class SignInComponent {
             if (!!this.form.get('rememberMe')?.value) {
               localStorage.setItem('token', res.token);
             }
-            this.router.navigateByUrl('/loan');
+            this.router.navigateByUrl('/loan').then();
             this.isLoading = false;
             this.messageService.add({key: 'toast', detail: 'Success', severity: 'success', summary: 'Logged in succesfully'})
           },

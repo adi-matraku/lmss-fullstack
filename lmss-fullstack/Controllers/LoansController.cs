@@ -171,7 +171,14 @@ public class LoansController: BaseApiController
                 var book = await _context.Books.FindAsync(loan.BookID);
                 if (book != null)
                 {
+                    bool wasOutOfStock = book.Stock == 0;
+                    
                     book.Stock++;
+                    
+                    if (wasOutOfStock && book.Stock > 0)
+                    {
+                        book.AvailabilityStatus = true;
+                    }
                 }
 
                 loan.IsActive = false;

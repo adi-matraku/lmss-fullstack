@@ -19,7 +19,9 @@ export class ViewBookComponent implements OnInit {
       id
         ? this.booksService.getBookById(id).pipe(
           catchError((err) => {
-            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error})
+            console.log(err, 'ERROR');
+            this.messageService.add({key: 'toast', detail: 'Error', severity: 'error', summary: err.error});
+            this.router.navigateByUrl('/loan').then();
             return of(null);
           })
         )

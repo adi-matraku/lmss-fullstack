@@ -51,12 +51,12 @@ public class BookService
         
         var books = await PagedList<Book>.CreateAsync(query, bookParams.PageNumber, bookParams.PageSize);
         
-        var totalBooks = await query.CountAsync();
+        // var totalBooks = await query.CountAsync();
 
         return new BookResponse
         {
             Books = books,
-            Total = totalBooks
+            Total = books.TotalCount
         };
         
     }

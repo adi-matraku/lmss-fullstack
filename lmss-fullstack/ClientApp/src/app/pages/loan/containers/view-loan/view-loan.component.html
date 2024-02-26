@@ -6,9 +6,13 @@
 
     <ng-container *ngIf="book$ | async as book ; else loading">
 
-    <button type="button" class="button" routerLink="edit" *ngIf="book.status !== 'Closed'"><i class="pi pi-pencil"></i>Edit</button>
-    <button type="button" class="delete-button" (click)="onDelete()" ><i class="pi pi-trash"></i>Delete</button>
-    <button type="button" class="audit-button" routerLink="/audit-logs"><i class="pi pi-history"></i>Audit Logs</button>
+      <div *appRole="['Admin', 0]">
+        <button type="button" class="button" routerLink="edit" *ngIf="book.status !== 'Closed'"><i class="pi pi-pencil"></i>Edit</button>
+      </div>
+      <div *appRole="['Admin', 0]">
+        <button type="button" class="delete-button" (click)="onDelete()" ><i class="pi pi-trash"></i>Delete</button>
+      </div>
+      <!--    <button type="button" class="audit-button" routerLink="/audit-logs"><i class="pi pi-history"></i>Audit Logs</button>-->
 
       <div class="container-content">
         <p>ID: <span> {{book.id}} </span> </p>

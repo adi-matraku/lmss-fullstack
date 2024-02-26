@@ -31,9 +31,11 @@
           {{rowData.status === 'inProgress' ? 'In Progress' : rowData.status | titlecase}}</span>
       </td>
       <td>
-        <button class="button-link" (click)="onView(rowData)" >View</button>
-        <button class="button-link" (click)="onEdit(rowData)" *ngIf="!rowData.returnDate" >Edit</button>
-        <button class="button-link" (click)="onDelete(rowData)" >Delete</button>
+        <button class="button-link" (click)="onView(rowData)">View</button>
+        <div *appRole="['Admin', 0]">
+          <button class="button-link" (click)="onEdit(rowData)" *ngIf="!rowData.returnDate" >Edit</button>
+        </div>
+        <button *appRole="['Admin', 0]" class="button-link" (click)="onDelete(rowData)" >Delete</button>
       </td>
     </tr>
   </ng-template>

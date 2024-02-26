@@ -10,8 +10,12 @@
     </p>
   </div>
   <div class="form-group">
+<!--    <span class="p-float-label">-->
+<!--      <p-password [(ngModel)]="value" [feedback]="false"></p-password>-->
+<!--      <label for="password">Password</label>-->
+<!--    </span>-->
    <label class="credentials-form__label" for="password">Password</label>
-   <input type="password" id="password" class="form-input" formControlName="password" pInputText/>
+   <p-password [toggleMask]="true" [feedback]="false" type="password" id="password" formControlName="password"/>
     <p class="error-message"
        *ngIf="!form.get('password')?.valid && form.get('password')?.touched"
     >

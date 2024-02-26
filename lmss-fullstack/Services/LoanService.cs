@@ -74,12 +74,12 @@ public class LoanService
      
         var loans = await PagedList<Loan>.CreateAsync(query, loanParams.PageNumber, loanParams.PageSize);
         
-        var totalLoans = await query.CountAsync();
+        // var totalLoans = await query.CountAsync();
 
         return new LoanResponse
         {
             Loans = loans,
-            Total = totalLoans
+            Total = loans.TotalCount
         };
         // return await PagedList<Loan>.CreateAsync(query, loanParams.PageNumber, loanParams.PageSize);
     }

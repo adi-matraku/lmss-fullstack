@@ -58,7 +58,7 @@
   </div>
   <div class="form-group">
     <label class="credentials-form__label" for="password">Password</label>
-    <input type="password" id="password" class="form-input" formControlName="password" />
+    <p-password [toggleMask]="true" [feedback]="false" type="password" id="password" formControlName="password"/>
 <!--    <p class="error-message" *ngIf="!submitted && !form.get('password')?.valid && form.get('password')?.touched ">-->
 <!--      Please input a valid password with atleast 6 characters, 1 uppercase, 1 lowercase, 1 numeric.-->
 <!--    </p>-->

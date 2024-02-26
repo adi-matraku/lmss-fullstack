@@ -8,8 +8,8 @@
     <button type="button" class="button" routerLink="edit" ><i class="pi pi-pencil"></i>Edit</button>
     <button type="button" class="button" (click)="onStatus(user.isActive ? true : false)" >
     <i class="pi pi-{{!user.isActive ? 'check' : 'ban'}}"></i>{{ !user.isActive ? 'Enable' : 'disable' | titlecase }} </button>
-    <button type="button" class="audit-button" routerLink="/audit-logs"><i class="pi pi-history"></i>Audit Logs</button>
-    <button type="button" class="audit-button" (click)="onActivity(user)"><i class="pi pi-eye"></i>Activity</button>
+<!--    <button type="button" class="audit-button" routerLink="/audit-logs"><i class="pi pi-history"></i>Audit Logs</button>-->
+<!--    <button type="button" class="audit-button" (click)="onActivity(user)"><i class="pi pi-eye"></i>Activity</button>-->
 
       <div class="container-content">
         <p>ID: <span> {{user.id}} </span> </p>

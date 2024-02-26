@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoansStore} from "../../services/loans.store";
 import {LoansTableComponent} from "../../components/loans-table/loans-table.component";
 import {take} from "rxjs";
@@ -11,7 +11,7 @@ import {exportExcel} from "../../../../shared/export-excel/export-excel.function
   templateUrl: './loan.component.html',
   styleUrls: ['./loan.component.scss']
 })
-export class LoanComponent {
+export class LoanComponent implements OnInit{
 
   loansSelection: [] = [];
 
@@ -27,7 +27,8 @@ export class LoanComponent {
   }
 
   exportFile() {
-    exportExcel(this.table.books)
+    console.log(this.table.books, 'BOOKS');
+    exportExcel(this.table.books, 'Loans')
   }
 
   selectedLoans(event: any) {

@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
   }
 
   exportFile() {
-    exportExcel(this.table.users)
+    exportExcel(this.table.users, 'Users')
   }
 
   selectedUsers(event: User[]) {
